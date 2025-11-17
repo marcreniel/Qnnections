@@ -1,0 +1,18 @@
+name: connections-rl
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - numpy<2
+  - pandas
+  - scikit-learn
+  - tqdm
+  - pyyaml
+  - pytorch
+  - transformers
+  - pip
+  - pip:
+      - sentencepiece
+      - safetensors
