@@ -121,9 +121,9 @@ def set_global_seed(seed: int | None) -> None:
         pass
 
 
-def decay_schedule(initial_value: float, visit_count: int) -> float:
-    """1/sqrt(n) decay helper for learning-rate style schedules."""
+# def decay_schedule(initial_value: float, visit_count: int) -> float:
+#     """1/sqrt(n) decay helper for learning-rate style schedules."""
 
-    if visit_count <= 0:
-        return initial_value
-    return initial_value / math.sqrt(visit_count)
+#     if visit_count <= 0:
+#         return initial_value
+#     return initial_value / math.sqrt(visit_count)
