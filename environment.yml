@@ -8,6 +8,7 @@ dependencies:
   - numpy<2
   - pandas
   - scikit-learn
+  - matplotlib
   - tqdm
   - pyyaml
   - pytorch

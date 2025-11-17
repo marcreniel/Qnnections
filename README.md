@@ -33,15 +33,18 @@ data/
 ```bash
 python train.py --variant baseline --episodes 5000 \
   --puzzle-path data/raw/connections.json \
-  --q-table-out reports/q_tables/baseline.pkl
-python train.py --variant glove --lambda_embed 0.2  --episodes 5000 \
+  --q-table-out reports/q_tables/baseline.pkl \
+  --metrics-plot reports/plots/baseline.png
+python train.py --variant glove --lambda_embed 0.8  --episodes 5000 \
   --puzzle-path data/raw/connections.json \
   --glove-path data/embeddings/glove.6B.300d.txt \
-  --q-table-out reports/q_tables/glove.pkl
-python train.py --variant gemma --lambda_embed 0.2 --episodes 5000 \
+  --q-table-out reports/q_tables/glove.pkl \
+  --metrics-plot reports/plots/glove.png
+python train.py --variant gemma --lambda_embed 0.8 --episodes 5000 \
   --puzzle-path data/raw/connections.json \
   --gemma-model google/embeddinggemma-300m \
-  --q-table-out reports/q_tables/gemma.pkl
+  --q-table-out reports/q_tables/gemma.pkl \
+  --metrics-plot reports/plots/gemma.png
 ```
 
 Key flags:

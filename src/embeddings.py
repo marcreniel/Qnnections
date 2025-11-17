@@ -154,8 +154,14 @@ def get_word_embedding(
     source = source.lower()
     if source == "glove":
         vectors = glove_vectors if glove_vectors is not None else _GLOVE_VECTORS
-        if word in vectors:
-            return vectors[word]
+        lookup_order = [word, word.lower(), word.upper(), word.title()]
+        seen: set[str] = set()
+        for candidate in lookup_order:
+            if not candidate or candidate in seen:
+                continue
+            seen.add(candidate)
+            if candidate in vectors:
+                return vectors[candidate]
         dim = next(iter(vectors.values())).shape[0] if vectors else _GLOVE_DIM
         return _fallback_vector(word, dim)
     if source == "gemma":
