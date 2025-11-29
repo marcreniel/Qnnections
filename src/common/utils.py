@@ -5,7 +5,6 @@ import warnings
 from pathlib import Path
 from typing import Iterable, List, Sequence
 import json
-import math
 import random
 
 import numpy as np
@@ -73,8 +72,11 @@ def _normalize_puzzle(entry: dict) -> dict:
     if len(words) != WORDS_PER_PUZZLE:
         raise ValueError("Derived puzzle does not contain 16 words.")
 
+    shuffled_words = list(words)
+    random.shuffle(shuffled_words)
+
     normalized = dict(entry)
-    normalized["words"] = words
+    normalized["words"] = shuffled_words
     normalized["groups"] = groups
     return normalized
 
@@ -91,21 +93,6 @@ def mask_to_int(mask: Sequence[bool]) -> int:
     return value
 
 
-def int_to_mask(mask_int: int, length: int = WORDS_PER_PUZZLE) -> np.ndarray:
-    """Convert an integer bitmask back to a boolean numpy array."""
-
-    mask = np.zeros(length, dtype=bool)
-    for idx in range(length):
-        mask[idx] = bool(mask_int & (1 << idx))
-    return mask
-
-
-def remaining_indices(mask: Sequence[bool]) -> List[int]:
-    """Return the indices that are still unused according to the mask."""
-
-    return [idx for idx, flag in enumerate(mask) if not flag]
-
-
 def set_global_seed(seed: int | None) -> None:
     """Seed Python, NumPy, and torch (if available) RNGs for reproducibility."""
 
@@ -119,11 +106,3 @@ def set_global_seed(seed: int | None) -> None:
         torch.manual_seed(seed)
     except Exception:
         pass
-
-
-# def decay_schedule(initial_value: float, visit_count: int) -> float:
-#     """1/sqrt(n) decay helper for learning-rate style schedules."""
-
-#     if visit_count <= 0:
-#         return initial_value
-#     return initial_value / math.sqrt(visit_count)
