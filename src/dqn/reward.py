@@ -7,9 +7,9 @@ import numpy as np
 from src.common.embeddings import get_word_embedding, _cosine_similarity
 
 BASE_REWARDS = {
-    "correct": 2.0,
+    "correct": 1.0,
     "one_away": 0.0,
-    "wrong": -1.0,
+    "wrong": -0.5,
 }
 SUCCESS_BONUS = 2.0
 

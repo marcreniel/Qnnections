@@ -62,3 +62,34 @@ def get_action_mask(used_mask: np.ndarray) -> np.ndarray:
     return ~is_invalid
 
 _ACTION_MATRIX = None
+
+def get_action_idx_from_words(words: List[str]) -> int:
+    """
+    Returns the action index for a given list of 4 words.
+    This assumes the words are from the current puzzle and we need to find their indices.
+    Wait, this function signature is tricky because we need the full list of puzzle words to map words -> indices.
+    
+    Actually, the caller (demo.py) has the puzzle words. It should map words -> indices first.
+    So let's rename this to get_action_idx_from_indices or just use a lookup.
+    
+    But demo.py calls `get_action_idx_from_words(group_words)`.
+    It seems demo.py logic was slightly flawed or expected this helper to do the reverse lookup.
+    
+    Let's change the contract: The caller should provide indices.
+    But wait, `demo.py` has:
+        group_words = [puzzle["words"][i] for i in group_indices]
+        action_idx = get_action_idx_from_words(group_words)
+        
+    It ALREADY has `group_indices`! It doesn't need to look up words.
+    It just needs to map `group_indices` (tuple of 4 ints) to `action_idx`.
+    
+    So let's implement `get_action_idx(indices: Tuple[int, ...]) -> int`.
+    """
+    raise NotImplementedError("Use get_action_idx instead.")
+
+# Reverse lookup map
+_ACTION_TO_IDX = {action: i for i, action in enumerate(ALL_ACTIONS)}
+
+def get_action_idx(indices: Tuple[int, int, int, int]) -> int:
+    """Returns the action index for a tuple of 4 sorted indices."""
+    return _ACTION_TO_IDX[tuple(sorted(indices))]
