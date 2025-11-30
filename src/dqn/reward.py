@@ -75,8 +75,8 @@ def compute_reward(
     # 1. Correctness Term
     base = BASE_REWARDS.get(result_str, 0.0)
     
-    # Add per-word reward (skip for one_away as requested)
-    if result_str != "one_away":
+    # Add per-word reward (only for wrong guesses, as requested)
+    if result_str == "wrong":
         base += overlap_count * PER_WORD_REWARD
     
     if episode_end == "success":

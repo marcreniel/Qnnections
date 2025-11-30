@@ -95,8 +95,8 @@ def compute_reward(
             if overlap > best_overlap:
                 best_overlap = overlap
         
-        # Add per-word reward (skip for one_away/3 overlap)
-        if best_overlap != 3:
+        # Add per-word reward (only for wrong guesses, i.e., overlap < 3)
+        if best_overlap < 3:
             score += best_overlap * 0.2
         
         if best_overlap == 4:
@@ -112,5 +112,5 @@ def compute_reward(
     else:
         score += -3.0 # Failure Penalty
         
-    # Normalize by max possible score (4 * (3 + 0.8) + 5 = 20.2)
-    return score / 20.2
+    # Normalize by max possible score (4 * 3 + 5 = 17.0)
+    return score / 17.0
