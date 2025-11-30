@@ -1,0 +1,4602 @@
+[
+  {
+    "id": 93,
+    "date": "2023-09-12",
+    "answers": [
+      {
+        "level": 0,
+        "group": "HOT DRINKS",
+        "members": [
+          "CHAI",
+          "COCOA",
+          "COFFEE",
+          "TEA"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "ANIMAL SOUNDS",
+        "members": [
+          "BUZZ",
+          "CLUCK",
+          "MEOW",
+          "OINK"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "TREE FEATURES",
+        "members": [
+          "BARK",
+          "BRANCH",
+          "ROOT",
+          "TRUNK"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "INSIDE INFO",
+        "members": [
+          "DIRT",
+          "DISH",
+          "SCOOP",
+          "SKINNY"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 879,
+    "date": "2025-11-07",
+    "answers": [
+      {
+        "level": -1,
+        "group": "TEXTILE PATTERNS",
+        "members": [
+          "ANIMAL PRINT",
+          "HERRINGBONE",
+          "HOUNDSTOOTH",
+          "POLKA DOT"
+        ]
+      },
+      {
+        "level": -1,
+        "group": "GREEN CONDIMENTS",
+        "members": [
+          "CHIMICHURRI",
+          "PESTO",
+          "RELISH",
+          "SALSA VERDE"
+        ]
+      },
+      {
+        "level": -1,
+        "group": "THINGS WITH HOLES IN THE MIDDLE",
+        "members": [
+          "BAGEL",
+          "HULA HOOP",
+          "INNER TUBE",
+          "WASHER"
+        ]
+      },
+      {
+        "level": -1,
+        "group": "THINGS THAT ARE PURPLE",
+        "members": [
+          "BARNEY THE DINOSAUR",
+          "EGGPLANT",
+          "PEOPLE EATER",
+          "SWING STATE"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 444,
+    "date": "2024-08-28",
+    "answers": [
+      {
+        "level": 0,
+        "group": "PLAYGROUND EQUIPMENT",
+        "members": [
+          "MONKEY BARS",
+          "SLIDE",
+          "SWINGS",
+          "TEETER-TOTTER"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "FOUND AT THE END OF A STRING/CORD",
+        "members": [
+          "PENDULUM",
+          "TEA BAG",
+          "TETHERBALL",
+          "YO-YO"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "DESCRIBED AS DRY",
+        "members": [
+          "DESERT",
+          "HUMOR",
+          "MARTINI",
+          "TEETOTALER"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "BABY ___",
+        "members": [
+          "BLUES",
+          "BOOMER",
+          "STEPS",
+          "TEETH"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 475,
+    "date": "2024-09-28",
+    "answers": [
+      {
+        "level": 0,
+        "group": "COMPOSITE",
+        "members": [
+          "BLEND",
+          "COMPOUND",
+          "CROSS",
+          "HYBRID"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "EMBED",
+        "members": [
+          "LODGE",
+          "PLANT",
+          "STICK",
+          "WEDGE"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "ITEMS IN A MONOPOLY BOX",
+        "members": [
+          "DEED",
+          "HOTEL",
+          "HOUSE",
+          "TOKEN"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "___ CONTROL",
+        "members": [
+          "BIRTH",
+          "CRUISE",
+          "QUALITY",
+          "REMOTE"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 590,
+    "date": "2025-01-21",
+    "answers": [
+      {
+        "level": 0,
+        "group": "PUTDOWN",
+        "members": [
+          "BARB",
+          "CRACK",
+          "DIG",
+          "SLIGHT"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "SMALL LIKENESS",
+        "members": [
+          "DOLL",
+          "FIGURE",
+          "MINIATURE",
+          "MODEL"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "USED TO CLEAR SNOW",
+        "members": [
+          "PLOW",
+          "SALT",
+          "SAND",
+          "SHOVEL"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "DOCTORS IN POP CULTURE",
+        "members": [
+          "NO",
+          "OCTOPUS",
+          "PEPPER",
+          "WHO"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 875,
+    "date": "2025-11-03",
+    "answers": [
+      {
+        "level": -1,
+        "group": "THINGS THAT ARE RED",
+        "members": [
+          "CLOWN NOSE",
+          "FIRE ENGINE",
+          "MARASCHINO CHERRY",
+          "STOP SIGN"
+        ]
+      },
+      {
+        "level": -1,
+        "group": "THINGS FILLED WITH AIR",
+        "members": [
+          "BALLOON ANIMAL",
+          "BOUNCY CASTLE",
+          "WATER WINGS",
+          "WHOOPEE CUSHION"
+        ]
+      },
+      {
+        "level": -1,
+        "group": "THINGS WITH A LOT OF PIECES",
+        "members": [
+          "JIGSAW PUZZLE",
+          "LEGO SET",
+          "LITE-BRITE",
+          "PICK-UP STICKS"
+        ]
+      },
+      {
+        "level": -1,
+        "group": "ENDING WITH ANIMALS",
+        "members": [
+          "DARK HORSE",
+          "FUNKY CHICKEN",
+          "JUMBO SHRIMP",
+          "SEA MONKEY"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 252,
+    "date": "2024-02-18",
+    "answers": [
+      {
+        "level": 0,
+        "group": "EAT A LITTLE",
+        "members": [
+          "GRAZE",
+          "NIBBLE",
+          "PECK",
+          "SNACK"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "PURSUE",
+        "members": [
+          "HUNT",
+          "TRACK",
+          "TRAIL",
+          "STALK"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "INGREDIENTS IN MINESTRONE",
+        "members": [
+          "BEANS",
+          "PASTA",
+          "STOCK",
+          "VEGETABLES"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "___CAST",
+        "members": [
+          "BROAD",
+          "FORE",
+          "POD",
+          "TYPE"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 551,
+    "date": "2024-12-13",
+    "answers": [
+      {
+        "level": 0,
+        "group": "FANTASY CREATURES",
+        "members": [
+          "DRAGON",
+          "GIANT",
+          "PIXIE",
+          "TROLL"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "EMAIL FOLDERS",
+        "members": [
+          "DRAFTS",
+          "SENT",
+          "SPAM",
+          "TRASH"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "CITRUS SODAS",
+        "members": [
+          "CRUSH",
+          "SPRITE",
+          "SQUIRT",
+          "STARRY"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "ANIMAL HOMOPHONES",
+        "members": [
+          "BORE",
+          "LINKS",
+          "PHISH",
+          "TOWED"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 312,
+    "date": "2024-04-18",
+    "answers": [
+      {
+        "level": 0,
+        "group": "SIDEWALK SIGHTS",
+        "members": [
+          "CURB",
+          "GRATE",
+          "GUTTER",
+          "MANHOLE"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "HAVE IN MIND",
+        "members": [
+          "AIM",
+          "INTEND",
+          "MEAN",
+          "PLAN"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "UNIT ABBREVIATIONS",
+        "members": [
+          "CAL",
+          "GAL",
+          "IN",
+          "OZ"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "GOLDEN ___",
+        "members": [
+          "FLEECE",
+          "GIRLS",
+          "PARACHUTE",
+          "RULE"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 491,
+    "date": "2024-10-14",
+    "answers": [
+      {
+        "level": 0,
+        "group": "RUMMAGE",
+        "members": [
+          "COMB",
+          "DIG",
+          "ROOT",
+          "SIFT"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "SOUNDS OF THUNDER",
+        "members": [
+          "CLAP",
+          "PEAL",
+          "ROLL",
+          "RUMBLE"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "WAYS TO WEAR YOUR HAIR UP",
+        "members": [
+          "BUN",
+          "BRAID",
+          "PONY",
+          "TWIST"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "THINGS THAT CAN HAVE LEAVES",
+        "members": [
+          "BOOK",
+          "SALAD",
+          "TABLE",
+          "TREE"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 173,
+    "date": "2023-12-01",
+    "answers": [
+      {
+        "level": 0,
+        "group": "PLACES TO SHOP",
+        "members": [
+          "MALL",
+          "MARKET",
+          "OUTLET",
+          "STORE"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "WAYS TO REMOVE HAIR",
+        "members": [
+          "SHAVE",
+          "THREAD",
+          "TWEEZE",
+          "WAX"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "PORTION OF PROFIT",
+        "members": [
+          "CUT",
+          "PIECE",
+          "SHARE",
+          "TAKE"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "KINDS OF WRENCHES",
+        "members": [
+          "ALLEN",
+          "CRESCENT",
+          "MONKEY",
+          "SOCKET"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 300,
+    "date": "2024-04-06",
+    "answers": [
+      {
+        "level": 0,
+        "group": "INTRINSIC MOTIVATORS",
+        "members": [
+          "DESIRE",
+          "DRIVE",
+          "RESOLVE",
+          "WILL"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "SUMMER GEAR",
+        "members": [
+          "HAT",
+          "SHORTS",
+          "SUNGLASSES",
+          "TEE"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "COLLECTION",
+        "members": [
+          "ARRAY",
+          "BATTERY",
+          "SET",
+          "SERIES"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "HORSE___",
+        "members": [
+          "FLY",
+          "POWER",
+          "RADISH",
+          "SHOE"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "date": "2023-07-10",
+    "answers": [
+      {
+        "level": 0,
+        "group": "WINGED INSECTS",
+        "members": [
+          "FLY",
+          "GNAT",
+          "MOTH",
+          "WASP"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "ARITHMETIC OPERATIONS",
+        "members": [
+          "ADD",
+          "DIVIDE",
+          "MULTIPLY",
+          "SUBTRACT"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "FISH",
+        "members": [
+          "TANG",
+          "TETRA",
+          "SKATE",
+          "SOLE"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "___ CAT",
+        "members": [
+          "ALLEY",
+          "COOL",
+          "COPY",
+          "LAP"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 375,
+    "date": "2024-06-20",
+    "answers": [
+      {
+        "level": 0,
+        "group": "BITS OF HARDWARE",
+        "members": [
+          "NAIL",
+          "NUT",
+          "SCREW",
+          "WASHER"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "FISHING GEAR",
+        "members": [
+          "FLY",
+          "HOOK",
+          "LINE",
+          "SINKER"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "HAIR SALON FIXTURES",
+        "members": [
+          "CHAIR",
+          "DRYER",
+          "MIRROR",
+          "SINK"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "LIGHTNING ___",
+        "members": [
+          "BOLT",
+          "BUG",
+          "ROD",
+          "STRIKE"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 534,
+    "date": "2024-11-26",
+    "answers": [
+      {
+        "level": 0,
+        "group": "GOOD THINGS TO GET AT WORK",
+        "members": [
+          "BONUS",
+          "EQUITY",
+          "PROMOTION",
+          "RAISE"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "DISREGARD",
+        "members": [
+          "DISCOUNT",
+          "FORGET",
+          "IGNORE",
+          "OVERLOOK"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "KINDS OF CRACKERS",
+        "members": [
+          "ANIMAL",
+          "CLUB",
+          "GOLDFISH",
+          "RITZ"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "FEATURED IN \u201cELOISE\u201d",
+        "members": [
+          "ELOISE",
+          "PLAZA",
+          "PUG",
+          "TURTLE"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 537,
+    "date": "2024-11-29",
+    "answers": [
+      {
+        "level": 0,
+        "group": "UNDERTAKING",
+        "members": [
+          "ENDEAVOR",
+          "ENTERPRISE",
+          "PROJECT",
+          "VENTURE"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "UNITS",
+        "members": [
+          "HERTZ",
+          "MOLE",
+          "SECOND",
+          "VOLT"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "M.L.B. TEAM MEMBER",
+        "members": [
+          "NATIONAL",
+          "RAY",
+          "TIGER",
+          "TWIN"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "FIRST WORDS OF HBO SHOWS",
+        "members": [
+          "BOARDWALK",
+          "CURB",
+          "GAME",
+          "SILICON"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 514,
+    "date": "2024-11-06",
+    "answers": [
+      {
+        "level": 0,
+        "group": "DVR BUTTONS",
+        "members": [
+          "PAUSE",
+          "PLAY",
+          "RECORD",
+          "STOP"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "GROUNDBREAKING",
+        "members": [
+          "DIFFERENT",
+          "NEW",
+          "NOVEL",
+          "ORIGINAL"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "COMMUNICATE THROUGH WRITING",
+        "members": [
+          "CORRESPOND",
+          "MESSAGE",
+          "TEXT",
+          "WRITE"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "THINGS WITH FEET",
+        "members": [
+          "BIPED",
+          "FURNITURE",
+          "POEM",
+          "YARDSTICK"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 690,
+    "date": "2025-05-01",
+    "answers": [
+      {
+        "level": 0,
+        "group": "WINNINGS",
+        "members": [
+          "POT",
+          "PRIZE",
+          "PURSE",
+          "REWARD"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "STOP, AS A HABIT",
+        "members": [
+          "BREAK",
+          "DROP",
+          "KICK",
+          "SHAKE"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "MOVIE CAMERA VERBS",
+        "members": [
+          "DOLLY",
+          "PAN",
+          "TILT",
+          "ZOOM"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "WORDS THAT PRECEDE \"-SIZE\" TO MEAN SMALL",
+        "members": [
+          "BITE",
+          "FUN",
+          "POCKET",
+          "TRAVEL"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 351,
+    "date": "2024-05-27",
+    "answers": [
+      {
+        "level": 0,
+        "group": "AGENCY IN DECISIONMAKING",
+        "members": [
+          "CHOICE",
+          "SAY",
+          "VOICE",
+          "VOTE"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "DOG COMMANDS",
+        "members": [
+          "DOWN",
+          "HEEL",
+          "SHAKE",
+          "SPEAK"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "KINDS OF NOTES",
+        "members": [
+          "FLAT",
+          "NATURAL",
+          "QUARTER",
+          "WHOLE"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "___ IRON",
+        "members": [
+          "PUMP",
+          "STEAM",
+          "TIRE",
+          "WAFFLE"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 200,
+    "date": "2023-12-28",
+    "answers": [
+      {
+        "level": 0,
+        "group": "PARTS OF A CAR",
+        "members": [
+          "BUMPER",
+          "HOOD",
+          "TIRE",
+          "TRUNK"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "MOVE QUICKLY",
+        "members": [
+          "BOLT",
+          "DART",
+          "DASH",
+          "ZIP"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "BIRDS",
+        "members": [
+          "CARDINAL",
+          "JAY",
+          "LARK",
+          "SWIFT"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "JAZZ LEGENDS",
+        "members": [
+          "HANCOCK",
+          "HOLIDAY",
+          "MONK",
+          "PARKER"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 848,
+    "date": "2025-10-06",
+    "answers": [
+      {
+        "level": -1,
+        "group": "PARTS OF A RECORD PLAYER SETUP",
+        "members": [
+          "AMP",
+          "PREAMP",
+          "SPEAKER",
+          "TURNTABLE"
+        ]
+      },
+      {
+        "level": -1,
+        "group": "KINDS OF COATS",
+        "members": [
+          "CAMEL",
+          "DUFFLE",
+          "PEA",
+          "TRENCH"
+        ]
+      },
+      {
+        "level": -1,
+        "group": "THINGS THAT COME ON SPOOLS",
+        "members": [
+          "FILM",
+          "TAPE",
+          "THREAD",
+          "WIRE"
+        ]
+      },
+      {
+        "level": -1,
+        "group": "STARTING WITH HOMOPHONES OF GREETINGS",
+        "members": [
+          "HAIKU",
+          "HAYSTACK",
+          "HELONIUM",
+          "YEOMAN"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 399,
+    "date": "2024-07-14",
+    "answers": [
+      {
+        "level": 0,
+        "group": "SLENDER PROJECTIONS",
+        "members": [
+          "POINT",
+          "PRONG",
+          "TINE",
+          "TIP"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "CONDITIONS FOR COLLECTIBLES",
+        "members": [
+          "FAIR",
+          "FINE",
+          "GOOD",
+          "MINT"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "PROFESSION",
+        "members": [
+          "BUSINESS",
+          "FIELD",
+          "LINE",
+          "TRADE"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "WORDS BEFORE \u201cNUT\u201d",
+        "members": [
+          "BRAZIL",
+          "BUTTER",
+          "DOUGH",
+          "PINE"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 545,
+    "date": "2024-12-07",
+    "answers": [
+      {
+        "level": 0,
+        "group": "THINK OF TOGETHER",
+        "members": [
+          "AFFILIATE",
+          "ASSOCIATE",
+          "EQUATE",
+          "RELATE"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "WAYS TO ATTRACT FISH",
+        "members": [
+          "BAIT",
+          "CHUM",
+          "FLY",
+          "LURE"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "W.N.B.A. TEAMS",
+        "members": [
+          "LIBERTY",
+          "STORM",
+          "SUN",
+          "WINGS"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "LONG___",
+        "members": [
+          "BOW",
+          "FELLOW",
+          "HORN",
+          "LEGS"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 561,
+    "date": "2024-12-23",
+    "answers": [
+      {
+        "level": 0,
+        "group": "HOMOPHONES",
+        "members": [
+          "EWE",
+          "U",
+          "YEW",
+          "YOU"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "NECKLINES",
+        "members": [
+          "BOAT",
+          "CREW",
+          "SCOOP",
+          "V"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "WAYS TO EXPRESS 1,000",
+        "members": [
+          "GRAND",
+          "K",
+          "M",
+          "THOU"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "SUPER ___",
+        "members": [
+          "8",
+          "BOWL",
+          "GLUE",
+          "TUESDAY"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 813,
+    "date": "2025-09-01",
+    "answers": [
+      {
+        "level": 0,
+        "group": "FIRST APPEARANCE",
+        "members": [
+          "DEBUT",
+          "INTRODUCTION",
+          "LAUNCH",
+          "PREMIERE"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "ONES CELEBRATED WITH HOLIDAYS",
+        "members": [
+          "MOTHER",
+          "PRESIDENT",
+          "SAINT PATRICK",
+          "SAINT VALENTINE"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "FAMOUS POETS",
+        "members": [
+          "BISHOP",
+          "BURNS",
+          "LORDE",
+          "POPE"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "WHAT \"CARDINAL\" MIGHT REFER TO",
+        "members": [
+          "BIRD",
+          "CLERGY MEMBER",
+          "M.L.B. PLAYER",
+          "N.F.L. PLAYER"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 691,
+    "date": "2025-05-02",
+    "answers": [
+      {
+        "level": 0,
+        "group": "KINDS OF CARVINGS",
+        "members": [
+          "BUST",
+          "RELIEF",
+          "STATUE",
+          "TORSO"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "PILLAR",
+        "members": [
+          "BRACE",
+          "POST",
+          "PROP",
+          "SUPPORT"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "BBQ OFFERING",
+        "members": [
+          "DOG",
+          "LINK",
+          "RIB",
+          "WING"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "___NECK",
+        "members": [
+          "BOTTLE",
+          "BREAK",
+          "GOOSE",
+          "TURTLE"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 398,
+    "date": "2024-07-13",
+    "answers": [
+      {
+        "level": 0,
+        "group": "ENORMOUS",
+        "members": [
+          "GIANT",
+          "MAMMOTH",
+          "MONSTER",
+          "TITANIC"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "EMBODIMENT",
+        "members": [
+          "AVATAR",
+          "CHARACTER",
+          "FIGURE",
+          "PERSONA"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "COME ACROSS AS",
+        "members": [
+          "APPEAR",
+          "LOOK",
+          "SEEM",
+          "SOUND"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "SILENT \u201cT\u201d",
+        "members": [
+          "CASTLE",
+          "HUSTLE",
+          "LISTEN",
+          "WITCH"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 803,
+    "date": "2025-08-22",
+    "answers": [
+      {
+        "level": 0,
+        "group": "U.S. PRESIDENTS",
+        "members": [
+          "ADAMS",
+          "FORD",
+          "GRANT",
+          "WASHINGTON"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "ACTORS WHOSE LAST NAMES ARE ALSO VERBS",
+        "members": [
+          "CHEVY CHASE",
+          "CHRISTOPH WALTZ",
+          "GEOFFREY RUSH",
+          "TOM CRUISE"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "KINDS OF POKER",
+        "members": [
+          "DRAW",
+          "OMAHA",
+          "STRIP",
+          "STUD"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "PROPER NOUNS AFTER GERUNDS IN '90S MOVIE TITLES",
+        "members": [
+          "AMY",
+          "JOHN MALKOVICH",
+          "LAS VEGAS",
+          "PRIVATE RYAN"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 529,
+    "date": "2024-11-21",
+    "answers": [
+      {
+        "level": 0,
+        "group": "KINDS OF SHIRTS",
+        "members": [
+          "FLANNEL",
+          "OXFORD",
+          "POLO",
+          "TEE"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "SPHERES IN MILK TEA",
+        "members": [
+          "BOBA",
+          "BUBBLE",
+          "PEARL",
+          "TAPIOCA"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "MARINE INVERTEBRATES, FAMILIARLY",
+        "members": [
+          "CORAL",
+          "JELLY",
+          "SPONGE",
+          "STAR"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "STARTS OF PASTA NAMES",
+        "members": [
+          "FETT",
+          "PENN",
+          "TORTE",
+          "ZIT"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 732,
+    "date": "2025-06-12",
+    "answers": [
+      {
+        "level": 0,
+        "group": "GETTING COZY",
+        "members": [
+          "CUDDLING",
+          "HUGGING",
+          "SNUGGLING",
+          "SPOONING"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "GOSSIPING",
+        "members": [
+          "BUZZING",
+          "DISHING",
+          "SPILLING",
+          "WHISPERING"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "ENGAGING IN AN ACTIVITY WITH PINS OR NEEDLES",
+        "members": [
+          "ACUPUNCTURING",
+          "BOWLING",
+          "SEWING",
+          "WRESTLING"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "STARTING WITH TITLES",
+        "members": [
+          "DOCTORING",
+          "LORDING",
+          "MISSING",
+          "SIRING"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 819,
+    "date": "2025-09-07",
+    "answers": [
+      {
+        "level": 0,
+        "group": "GYMNASTICS MOVES",
+        "members": [
+          "AERIAL",
+          "ARABESQUE",
+          "ROUNDOFF",
+          "SPLIT"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "DISNEY PRINCESSES",
+        "members": [
+          "ARIEL",
+          "AURORA",
+          "MERIDA",
+          "TIANA"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "FONTS",
+        "members": [
+          "ARIAL",
+          "GEORGIA",
+          "IMPACT",
+          "VERDANA"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "GEOMETRY ADJECTIVES",
+        "members": [
+          "ANGULAR",
+          "AREAL",
+          "LINEAR",
+          "VOLUMETRIC"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 233,
+    "date": "2024-01-30",
+    "answers": [
+      {
+        "level": 0,
+        "group": "HIT HARD",
+        "members": [
+          "BANG",
+          "HAMMER",
+          "POUND",
+          "SLAM"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "NEWSPAPER NAMES",
+        "members": [
+          "CHRONICLE",
+          "HERALD",
+          "REGISTER",
+          "SUN"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "CRESCENT-SHAPED THINGS",
+        "members": [
+          "BANANA",
+          "CROISSANT",
+          "MOON",
+          "SICKLE"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "POWER-UPS IN SUPER MARIO WORLD",
+        "members": [
+          "FEATHER",
+          "FLOWER",
+          "MUSHROOM",
+          "STAR"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 37,
+    "date": "2023-07-18",
+    "answers": [
+      {
+        "level": 0,
+        "group": "MARINE MAMMALS",
+        "members": [
+          "DOLPHIN",
+          "MANATEE",
+          "OTTER",
+          "SEAL"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "BIKE PARTS",
+        "members": [
+          "BRAKE",
+          "CHAIN",
+          "SADDLE",
+          "SPOKE"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "SYNONYMS FOR SELL",
+        "members": [
+          "HAWK",
+          "MOVE",
+          "PEDDLE",
+          "VEND"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "COUNTRIES WHEN \u201cA\u201d IS ADDED",
+        "members": [
+          "CHIN",
+          "CUB",
+          "MALT",
+          "TONG"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 868,
+    "date": "2025-10-26",
+    "answers": [
+      {
+        "level": -1,
+        "group": "KINDS OF INSTRUMENTS",
+        "members": [
+          "BRASS",
+          "PERCUSSION",
+          "STRING",
+          "WIND"
+        ]
+      },
+      {
+        "level": -1,
+        "group": "WORDS IN A FAMOUS MUHAMMAD ALI QUOTE",
+        "members": [
+          "BEE",
+          "BUTTERFLY",
+          "FLOAT",
+          "STING"
+        ]
+      },
+      {
+        "level": -1,
+        "group": "KINDS OF CONTESTS",
+        "members": [
+          "BEAUTY",
+          "POPULARITY",
+          "STARING",
+          "TALENT"
+        ]
+      },
+      {
+        "level": -1,
+        "group": "WORDS WITH DIMINUTIVE SUFFIXES",
+        "members": [
+          "DOGGY",
+          "DROPLET",
+          "KITCHENETTE",
+          "STARLING"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 549,
+    "date": "2024-12-11",
+    "answers": [
+      {
+        "level": 0,
+        "group": "UTOPIA",
+        "members": [
+          "PARADISE",
+          "SEVENTH HEAVEN",
+          "SHANGRI-LA",
+          "XANADU"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "THINGS YOU SHAKE",
+        "members": [
+          "HAIRSPRAY",
+          "MAGIC 8 BALL",
+          "SALAD DRESSING",
+          "SNOWGLOBE"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "PROPER NOUN PORTMANTEAUX",
+        "members": [
+          "JAZZERCISE",
+          "PARALYMPICS",
+          "POK\u00c9MON",
+          "WIKIPEDIA"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "ENDING IN SYNONYMS FOR \u201cFRIEND\u201d",
+        "members": [
+          "KETCHUM",
+          "PAYPAL",
+          "PRIMATE",
+          "ROSEBUD"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 175,
+    "date": "2023-12-03",
+    "answers": [
+      {
+        "level": 0,
+        "group": "MONTHLY BILLS",
+        "members": [
+          "CABLE",
+          "ELECTRIC",
+          "GAS",
+          "WATER"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "RELATED TO SOUND/HEARING",
+        "members": [
+          "ACOUSTIC",
+          "AUDITORY",
+          "HEARD",
+          "SONIC"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "CONNECT",
+        "members": [
+          "COUPLE",
+          "HITCH",
+          "LINK",
+          "TIE"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "EXCITE, WITH \u201cUP\u201d",
+        "members": [
+          "AMP",
+          "FIRE",
+          "HYPE",
+          "PUMP"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 370,
+    "date": "2024-06-15",
+    "answers": [
+      {
+        "level": 0,
+        "group": "BASKETBALL SHOTS",
+        "members": [
+          "DUNK",
+          "FLOATER",
+          "LAYUP",
+          "THREE"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "FISH",
+        "members": [
+          "PERCH",
+          "PIKE",
+          "SKATE",
+          "SOLE"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "QUALITIES OF THICK HAIR",
+        "members": [
+          "BODY",
+          "BOUNCE",
+          "LIFT",
+          "VOLUME"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "___ CHILD",
+        "members": [
+          "FLOWER",
+          "ONLY",
+          "POSTER",
+          "PROBLEM"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 392,
+    "date": "2024-07-07",
+    "answers": [
+      {
+        "level": 0,
+        "group": "CHANGE STATES OF MATTER",
+        "members": [
+          "CONDENSE",
+          "FREEZE",
+          "MELT",
+          "VAPORIZE"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "REPLACEMENT",
+        "members": [
+          "ALTERNATE",
+          "BACKUP",
+          "COVER",
+          "SUB"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "SLANGY NAMES FOR PROFESSIONS",
+        "members": [
+          "COPPER",
+          "HACK",
+          "SHRINK",
+          "SUIT"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "MARIAH CAREY NUMBER ONE HITS",
+        "members": [
+          "FANTASY",
+          "HERO",
+          "HONEY",
+          "SOMEDAY"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 462,
+    "date": "2024-09-15",
+    "answers": [
+      {
+        "level": 0,
+        "group": "RESIDE",
+        "members": [
+          "DWELL",
+          "INHABIT",
+          "LIVE",
+          "STAY"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "DECREASE",
+        "members": [
+          "DECLINE",
+          "DROP",
+          "DWINDLE",
+          "EBB"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "DOOFUS",
+        "members": [
+          "CLOWN",
+          "DWEEB",
+          "SAP",
+          "TURKEY"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "MEMBER OF A SEPTET",
+        "members": [
+          "DWARF",
+          "SEA",
+          "SIN",
+          "WONDER"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 682,
+    "date": "2025-04-23",
+    "answers": [
+      {
+        "level": 0,
+        "group": "PARTS OF A TREE",
+        "members": [
+          "BRANCH",
+          "LEAF",
+          "ROOT",
+          "TRUNK"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "CANINE/FELINE FEATURES",
+        "members": [
+          "FUR",
+          "MUZZLE",
+          "PAW",
+          "TAIL"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "COMEDIC ROUTINE",
+        "members": [
+          "ACT",
+          "BIT",
+          "GAG",
+          "SKETCH"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "___POLE",
+        "members": [
+          "BEAN",
+          "FLAG",
+          "MAY",
+          "TAD"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 721,
+    "date": "2025-06-01",
+    "answers": [
+      {
+        "level": 0,
+        "group": "LOCAL WATERING HOLE",
+        "members": [
+          "DIVE",
+          "ESTABLISHMENT",
+          "HAUNT",
+          "JOINT"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "COMPETE IN A MODERN PENTATHLON",
+        "members": [
+          "FENCE",
+          "RIDE",
+          "SHOOT",
+          "SWIM"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "ENSURE, AS A VICTORY",
+        "members": [
+          "CINCH",
+          "GUARANTEE",
+          "ICE",
+          "LOCK"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "___ FUND",
+        "members": [
+          "HEDGE",
+          "MUTUAL",
+          "SLUSH",
+          "TRUST"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 381,
+    "date": "2024-06-26",
+    "answers": [
+      {
+        "level": 0,
+        "group": "ARMY RANKS",
+        "members": [
+          "CAPTAIN",
+          "GENERAL",
+          "MAJOR",
+          "PRIVATE"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "PLACE TO PLUG SOMETHING IN",
+        "members": [
+          "JACK",
+          "OUTLET",
+          "PORT",
+          "SOCKET"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "CONSUMER DESIRE, COLLECTIVELY",
+        "members": [
+          "APPETITE",
+          "AUDIENCE",
+          "DEMAND",
+          "MARKET"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "___ AD",
+        "members": [
+          "ATTACK",
+          "PERSONAL",
+          "POP-UP",
+          "WANT"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 149,
+    "date": "2023-11-07",
+    "answers": [
+      {
+        "level": 0,
+        "group": "DIGITAL NOTIFICATION SOUNDS",
+        "members": [
+          "CHIME",
+          "DING",
+          "PING",
+          "RING"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "TATTLE",
+        "members": [
+          "RAT",
+          "SING",
+          "SNITCH",
+          "SQUEAL"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "GROUP WITHIN A GROUP",
+        "members": [
+          "CAMP",
+          "DIVISION",
+          "FACTION",
+          "WING"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "MICROSOFT PRODUCTS",
+        "members": [
+          "BING",
+          "EDGE",
+          "SURFACE",
+          "WORD"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 365,
+    "date": "2024-06-10",
+    "answers": [
+      {
+        "level": 0,
+        "group": "CORE",
+        "members": [
+          "CRUX",
+          "ESSENCE",
+          "HEART",
+          "SUBSTANCE"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "COMPLICATED",
+        "members": [
+          "BAROQUE",
+          "COMPLEX",
+          "ELABORATE",
+          "INVOLVED"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "SYMBOLS USED IN MAKING LISTS",
+        "members": [
+          "ARROW",
+          "BULLET",
+          "CHECKBOX",
+          "HYPHEN"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "WHAT \u201cCROSS\u201d MIGHT MEAN",
+        "members": [
+          "ANGRY",
+          "BETRAY",
+          "CRUCIFIX",
+          "HYBRID"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 638,
+    "date": "2025-03-10",
+    "answers": [
+      {
+        "level": 0,
+        "group": "CAT BREEDS",
+        "members": [
+          "RAGAMUFFIN",
+          "RUSSIAN BLUE",
+          "SPHYNX",
+          "TURKISH ANGORA"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "FAMOUS SMILES",
+        "members": [
+          "CHESHIRE CAT",
+          "COMEDY MASK",
+          "JOKER",
+          "MONA LISA"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "ATTRACTIONS ICONICALLY DIFFERENT FROM THEIR ORIGINAL FORMS",
+        "members": [
+          "LIBERTY BELL",
+          "VENUS DE MILO",
+          "STATUE OF LIBERTY",
+          "TOWER OF PISA"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "ASSOCIATED WITH \u201cTHE DUDE\u201d LEBOWSKI",
+        "members": [
+          "BATHROBE",
+          "BOWLING",
+          "RUG",
+          "WHITE RUSSIAN"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 50,
+    "date": "2023-07-31",
+    "answers": [
+      {
+        "level": 0,
+        "group": "UNITS OF LENGTH",
+        "members": [
+          "FOOT",
+          "INCH",
+          "MILE",
+          "YARD"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "TYPES OF PAINT",
+        "members": [
+          "ACRYLIC",
+          "OIL",
+          "TEMPERA",
+          "WATERCOLOR"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "DEEP-FRIED FOOD",
+        "members": [
+          "FALAFEL",
+          "KATSU",
+          "SAMOSA",
+          "SCHNITZEL"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "STARTS OF U.S. COINS",
+        "members": [
+          "DIM",
+          "NICK",
+          "PEN",
+          "QUART"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 695,
+    "date": "2025-05-06",
+    "answers": [
+      {
+        "level": 0,
+        "group": "SILENCE",
+        "members": [
+          "CALM",
+          "HUSH",
+          "PEACE",
+          "STILL"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "TENNIS COMPETITION UNITS",
+        "members": [
+          "GAME",
+          "MATCH",
+          "SET",
+          "TOURNAMENT"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "COMPARATIVELY SMALL",
+        "members": [
+          "BABY",
+          "COMPACT",
+          "MINUTE",
+          "TOY"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "STARTING WITH SYNONYMS FOR \u201cTEASE\u201d",
+        "members": [
+          "KIDNEY",
+          "MOCKINGBIRD",
+          "RAZZMATAZZ",
+          "RIBBON"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 335,
+    "date": "2024-05-11",
+    "answers": [
+      {
+        "level": 0,
+        "group": "ONE WITH TOP BILLING",
+        "members": [
+          "HEADLINER",
+          "LEAD",
+          "PRINCIPAL",
+          "STAR"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "VAMPIRE VULNERABILITIES",
+        "members": [
+          "CROSS",
+          "GARLIC",
+          "SILVER",
+          "SUN"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "SATIRICAL PUBLICATIONS, FAMILIARLY",
+        "members": [
+          "CRACKED",
+          "LAMPOON",
+          "MAD",
+          "ONION"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "CLUB ___",
+        "members": [
+          "MED",
+          "MUSIC",
+          "SANDWICH",
+          "SODA"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 616,
+    "date": "2025-02-16",
+    "answers": [
+      {
+        "level": 0,
+        "group": "GLIMMER",
+        "members": [
+          "HINT",
+          "SUGGESTION",
+          "TOUCH",
+          "TRACE"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "CORRESPOND WELL WITH",
+        "members": [
+          "COMPLEMENT",
+          "FIT",
+          "MATCH",
+          "SUIT"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "FAMOUS PUPPETS",
+        "members": [
+          "LAMB CHOP",
+          "OSCAR",
+          "PUNCH",
+          "TRIUMPH"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "DOG BREEDS MINUS \u201cER\u201d SOUND",
+        "members": [
+          "BOX",
+          "POINT",
+          "RETRIEVE",
+          "SET"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 562,
+    "date": "2024-12-24",
+    "answers": [
+      {
+        "level": 0,
+        "group": "\u201cLIONS AND TIGERS AND BEARS, OH MY!\u201d",
+        "members": [
+          "BEARS",
+          "LIONS",
+          "OH MY",
+          "TIGERS"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "BELOVED, AS A FRIEND",
+        "members": [
+          "CLOSE",
+          "DEAR",
+          "INTIMATE",
+          "TIGHT"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "WORDS THAT SOUND LIKE PLURAL LETTERS",
+        "members": [
+          "BEES",
+          "EASE",
+          "JAYS",
+          "USE"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "WHEN TRIPLED, HIT SONG TITLES",
+        "members": [
+          "BILLS",
+          "BYE",
+          "GIMME",
+          "PLEASE"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 317,
+    "date": "2024-04-23",
+    "answers": [
+      {
+        "level": 0,
+        "group": "THROW OUT",
+        "members": [
+          "BOOT",
+          "BOUNCE",
+          "EJECT",
+          "TOSS"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "TERRA FIRMA",
+        "members": [
+          "EARTH",
+          "GROUND",
+          "LAND",
+          "SOIL"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "SEAS",
+        "members": [
+          "BALTIC",
+          "BLACK",
+          "PHILIPPINE",
+          "RED"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "TOM HANKS MOVIES",
+        "members": [
+          "BIG",
+          "PHILADELPHIA",
+          "SPLASH",
+          "SULLY"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 500,
+    "date": "2024-10-23",
+    "answers": [
+      {
+        "level": 0,
+        "group": "YELLOW ___",
+        "members": [
+          "CAB",
+          "JACKET",
+          "JOURNALISM",
+          "PAGES"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "GREEN ___",
+        "members": [
+          "BERET",
+          "GOBLIN",
+          "SALAD",
+          "THUMB"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "BLUE ___",
+        "members": [
+          "JAY",
+          "JEANS",
+          "MOON",
+          "WHALE"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "PURPLE ___",
+        "members": [
+          "HAZE",
+          "HEART",
+          "PROSE",
+          "RAIN"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 672,
+    "date": "2025-04-13",
+    "answers": [
+      {
+        "level": 0,
+        "group": "STEAL",
+        "members": [
+          "NICK",
+          "PINCH",
+          "POCKET",
+          "SWIPE"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "ATTENDANCE STATUS",
+        "members": [
+          "ABSENT",
+          "EXCUSED",
+          "LATE",
+          "PRESENT"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "FONT-MODIFYING WORDS",
+        "members": [
+          "GOTHIC",
+          "ROMAN",
+          "SANS",
+          "TYPEWRITER"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "___BERRY",
+        "members": [
+          "CAPER",
+          "ELDER",
+          "GOOSE",
+          "LOGAN"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 483,
+    "date": "2024-10-06",
+    "answers": [
+      {
+        "level": 0,
+        "group": "TURN TAIL",
+        "members": [
+          "FLEE",
+          "LEAVE",
+          "RETREAT",
+          "WITHDRAW"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "THINGS CATS DO",
+        "members": [
+          "KNEAD",
+          "PURR",
+          "SCRATCH",
+          "SHED"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "PAGES ON A WEBSITE",
+        "members": [
+          "ABOUT",
+          "CONTACT",
+          "HOME",
+          "LOGIN"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "___ CHEESE",
+        "members": [
+          "COTTAGE",
+          "CREAM",
+          "GOAT",
+          "STRING"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 222,
+    "date": "2024-01-19",
+    "answers": [
+      {
+        "level": 0,
+        "group": "SUNDAE TOPPINGS",
+        "members": [
+          "CHERRY",
+          "FUDGE",
+          "NUTS",
+          "SPRINKLES"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "LEAVE HIGH AND DRY",
+        "members": [
+          "DESERT",
+          "DITCH",
+          "MAROON",
+          "STRAND"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "\u201cPHOOEY!\u201d",
+        "members": [
+          "CURSES",
+          "DARN",
+          "RATS",
+          "SHOOT"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "WORDS IN TONGUE TWISTERS",
+        "members": [
+          "FUZZY",
+          "PEPPERS",
+          "SEASHELLS",
+          "WOODCHUCK"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 248,
+    "date": "2024-02-14",
+    "answers": [
+      {
+        "level": 0,
+        "group": "TOUCH LIGHTLY",
+        "members": [
+          "BRUSH",
+          "GRAZE",
+          "KISS",
+          "SKIM"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "KINDS OF NUMBERS",
+        "members": [
+          "ODD",
+          "PERFECT",
+          "PRIME",
+          "WHOLE"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "SAUCES IN CHINESE CUISINE",
+        "members": [
+          "OYSTER",
+          "PLUM",
+          "SOY",
+          "XO"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "BEAR ___",
+        "members": [
+          "CLAW",
+          "FRUIT",
+          "HUG",
+          "WITNESS"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 844,
+    "date": "2025-10-02",
+    "answers": [
+      {
+        "level": -1,
+        "group": "DOG COMMANDS",
+        "members": [
+          "COME",
+          "DOWN",
+          "HEEL",
+          "STAY"
+        ]
+      },
+      {
+        "level": -1,
+        "group": "DESERVED",
+        "members": [
+          "DUE",
+          "FAIR",
+          "JUST",
+          "RIGHT"
+        ]
+      },
+      {
+        "level": -1,
+        "group": "SITUATED",
+        "members": [
+          "LEFT",
+          "PLACED",
+          "PUT",
+          "SET"
+        ]
+      },
+      {
+        "level": -1,
+        "group": "BEST ANIMATED FEATURE OSCAR WINNERS",
+        "members": [
+          "BRAVE",
+          "FLOW",
+          "FROZEN",
+          "UP"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 589,
+    "date": "2025-01-20",
+    "answers": [
+      {
+        "level": 0,
+        "group": "TAKE ON, AS A RESPONSIBILITY",
+        "members": [
+          "ASSUME",
+          "BEAR",
+          "HANDLE",
+          "SHOULDER"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "CORNERS",
+        "members": [
+          "ANGLE",
+          "BEND",
+          "CROOK",
+          "ELBOW"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "ASSOCIATED WITH POPEYE",
+        "members": [
+          "ANCHOR",
+          "FOREARM",
+          "PIPE",
+          "SPINACH"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "___ SHEET",
+        "members": [
+          "BALANCE",
+          "CHEAT",
+          "COOKIE",
+          "FITTED"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 633,
+    "date": "2025-03-05",
+    "answers": [
+      {
+        "level": 0,
+        "group": "PERIPHERY",
+        "members": [
+          "BORDER",
+          "EDGE",
+          "FRINGE",
+          "SKIRT"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "THINGS PEOPLE DO TO FINGERNAILS",
+        "members": [
+          "BITE",
+          "CLIP",
+          "FILE",
+          "PAINT"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "WHAT MIGHT BRING TEARS TO YOUR EYES",
+        "members": [
+          "ALLERGY",
+          "MELODRAMA",
+          "ONION",
+          "RELIEF"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "___BALL RECREATIONAL SPORTS",
+        "members": [
+          "DODGE",
+          "KICK",
+          "PICKLE",
+          "SOFT"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 490,
+    "date": "2024-10-13",
+    "answers": [
+      {
+        "level": 0,
+        "group": "MADE OF KERATIN",
+        "members": [
+          "CLAW",
+          "HOOF",
+          "HORN",
+          "NAIL"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "ROAD RUNNER CARTOON STAPLES",
+        "members": [
+          "ANVIL",
+          "BOULDER",
+          "COYOTE",
+          "TNT"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "KINDS OF PANTS",
+        "members": [
+          "CAPRI",
+          "CARGO",
+          "HAMMER",
+          "STIRRUP"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "___ ROLL",
+        "members": [
+          "CALIFORNIA",
+          "DRUM",
+          "EGG",
+          "HONOR"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 532,
+    "date": "2024-11-24",
+    "answers": [
+      {
+        "level": 0,
+        "group": "CAREEN",
+        "members": [
+          "HEAVE",
+          "LURCH",
+          "PITCH",
+          "REEL"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "WHAT A NOUN MIGHT BE",
+        "members": [
+          "IDEA",
+          "PERSON",
+          "PLACE",
+          "THING"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "ELECTRONIC DANCE MUSIC GENRES",
+        "members": [
+          "AMBIENT",
+          "HOUSE",
+          "JUNGLE",
+          "TRANCE"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "WORDS AFTER \u201cASH\u201d",
+        "members": [
+          "BLOND",
+          "TRAY",
+          "TREE",
+          "WEDNESDAY"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 806,
+    "date": "2025-08-25",
+    "answers": [
+      {
+        "level": 0,
+        "group": "PREDICAMENT",
+        "members": [
+          "FIX",
+          "JAM",
+          "MESS",
+          "PICKLE"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "SMALL SPHERICAL THINGS",
+        "members": [
+          "MOTHBALL",
+          "PEA",
+          "PEARL",
+          "POM-POM"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "PIPE-SMOKING ACCESSORIES",
+        "members": [
+          "FILTER",
+          "LIGHTER",
+          "PIPE CLEANER",
+          "TAMPER"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "WHAT \"DOWN\" MIGHT MEAN",
+        "members": [
+          "FEATHERS",
+          "GUZZLE",
+          "SAD",
+          "WILLING"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 866,
+    "date": "2025-10-24",
+    "answers": [
+      {
+        "level": -1,
+        "group": "BEST YEARS",
+        "members": [
+          "HEYDAY",
+          "PINNACLE",
+          "PRIME",
+          "ZENITH"
+        ]
+      },
+      {
+        "level": -1,
+        "group": "THINGS YOU CAN DO TO TEXT",
+        "members": [
+          "BOLD",
+          "HIGHLIGHT",
+          "STRIKETHROUGH",
+          "UNDERLINE"
+        ]
+      },
+      {
+        "level": -1,
+        "group": "THINGS KNOWN FOR BEING COLORFUL THINGS",
+        "members": [
+          "KALEIDOSCOPE",
+          "PEACOCK",
+          "RAINBOW",
+          "SUNSET"
+        ]
+      },
+      {
+        "level": -1,
+        "group": "ENDING IN ACCESSORIES",
+        "members": [
+          "BAYWATCH",
+          "COOTIE",
+          "HERRING",
+          "KINGPIN"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 242,
+    "date": "2024-02-08",
+    "answers": [
+      {
+        "level": 0,
+        "group": "ARCHERY EQUIPMENT",
+        "members": [
+          "ARROW",
+          "BOW",
+          "QUIVER",
+          "TARGET"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "CARD GAMES",
+        "members": [
+          "BRIDGE",
+          "GIN",
+          "SPIT",
+          "WAR"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "WALLOP",
+        "members": [
+          "BELT",
+          "CLOCK",
+          "DECK",
+          "SLUG"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "CLASSIC TATTOOS",
+        "members": [
+          "ANCHOR",
+          "DRAGON",
+          "HEART",
+          "ROSE"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 782,
+    "date": "2025-08-01",
+    "answers": [
+      {
+        "level": 0,
+        "group": "APTITUDE",
+        "members": [
+          "BENT",
+          "FACULTY",
+          "FLAIR",
+          "GIFT"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "SILENT \u201cW\u201d",
+        "members": [
+          "PLAYWRIGHT",
+          "SWORD",
+          "WRAP",
+          "WREATH"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "LEGENDS OF CLASSIC HOLLYWOOD",
+        "members": [
+          "DEAN",
+          "GABLE",
+          "GARLAND",
+          "TEMPLE"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "HIT THE ___",
+        "members": [
+          "HAY",
+          "JACKPOT",
+          "ROAD",
+          "ROOF"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 596,
+    "date": "2025-01-27",
+    "answers": [
+      {
+        "level": 0,
+        "group": "SMALL AMOUNT OF FOOD TO TRY",
+        "members": [
+          "BITE",
+          "MOUTHFUL",
+          "SAMPLE",
+          "TASTE"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "PROTECTIVE COVERINGS IN NATURE",
+        "members": [
+          "BARK",
+          "SCALES",
+          "SHELL",
+          "SKIN"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "\u201cEXTRA VIRGIN OLIVE OIL\u201d",
+        "members": [
+          "EXTRA",
+          "OIL",
+          "OLIVE",
+          "VIRGIN"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "SEEN IN \u201cTHE SHINING\u201d",
+        "members": [
+          "AXE",
+          "HEDGE MAZE",
+          "TWINS",
+          "TYPEWRITER"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 812,
+    "date": "2025-08-31",
+    "answers": [
+      {
+        "level": 0,
+        "group": "CRITICIZE HARSHLY",
+        "members": [
+          "BASH",
+          "BLAST",
+          "FLAME",
+          "ROAST"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "COMMON COMPONENTS OF BOARD GAMES",
+        "members": [
+          "BOARD",
+          "CARDS",
+          "DICE",
+          "PIECES"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "HETERONYMS",
+        "members": [
+          "AXES",
+          "BASS",
+          "COORDINATE",
+          "DOES"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "___STICKS",
+        "members": [
+          "CHOP",
+          "DRUM",
+          "FIDDLE",
+          "FISH"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 153,
+    "date": "2023-11-11",
+    "answers": [
+      {
+        "level": 0,
+        "group": "SPARSE/LACKING",
+        "members": [
+          "LIGHT",
+          "SHORT",
+          "SPARE",
+          "THIN"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "FUN TIME",
+        "members": [
+          "BALL",
+          "BLAST",
+          "KICK",
+          "RIOT"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "FILMMAKING EQUIPMENT",
+        "members": [
+          "BOOM",
+          "DOLLY",
+          "LENS",
+          "TRIPOD"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "\u201cGET A ___!\u201d",
+        "members": [
+          "CLUE",
+          "GRIP",
+          "LIFE",
+          "ROOM"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 697,
+    "date": "2025-05-08",
+    "answers": [
+      {
+        "level": 0,
+        "group": "COMMIT TO PAPER",
+        "members": [
+          "AUTHOR",
+          "COMPOSE",
+          "PEN",
+          "WRITE"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "NEEDS FOR PLAYING YAHTZEE",
+        "members": [
+          "CUP",
+          "DICE",
+          "PENCIL",
+          "SCORECARD"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "HEROES OF ACTION MOVIE FRANCHISES",
+        "members": [
+          "BOND",
+          "JONES",
+          "OCEAN",
+          "WICK"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "___STICK",
+        "members": [
+          "CANDLE",
+          "CHOP",
+          "JOY",
+          "YARD"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 450,
+    "date": "2024-09-03",
+    "answers": [
+      {
+        "level": 0,
+        "group": "ABSOLVE",
+        "members": [
+          "EXCUSE",
+          "PARDON",
+          "SAVE",
+          "SPARE"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "EXCESSIVELY",
+        "members": [
+          "BEYOND",
+          "EXTRA",
+          "OVER",
+          "TOO"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "GLOBAL CURRENCIES",
+        "members": [
+          "POUND",
+          "REAL",
+          "WON",
+          "YEN"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "___HEAD",
+        "members": [
+          "ARROW",
+          "BLOCK",
+          "FORE",
+          "KNUCKLE"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 574,
+    "date": "2025-01-05",
+    "answers": [
+      {
+        "level": 0,
+        "group": "HARDLY BUSTLING",
+        "members": [
+          "CALM",
+          "QUIET",
+          "SLEEPY",
+          "SLOW"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "EARN",
+        "members": [
+          "GROSS",
+          "MAKE",
+          "NET",
+          "YIELD"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "REMOTE CONTROL FUNCTIONS",
+        "members": [
+          "HOME",
+          "MUTE",
+          "STOP",
+          "VOLUME"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "WORDS BEFORE \u201cDRUM\u201d",
+        "members": [
+          "EAR",
+          "KETTLE",
+          "OIL",
+          "SNARE"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "date": "2023-07-06",
+    "answers": [
+      {
+        "level": 0,
+        "group": "DESSERTS",
+        "members": [
+          "CHEESECAKE",
+          "FLAN",
+          "MOUSSE",
+          "TIRAMISU"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "MILD OATHS",
+        "members": [
+          "DARN",
+          "FUDGE",
+          "HECK",
+          "SHOOT"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "ANIMALS WITH TUSKS",
+        "members": [
+          "ELEPHANT",
+          "HIPPO",
+          "NARWHAL",
+          "WARTHOG"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "MUSTACHES",
+        "members": [
+          "HANDLEBAR",
+          "HORSESHOE",
+          "PENCIL",
+          "WALRUS"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 111,
+    "date": "2023-09-30",
+    "answers": [
+      {
+        "level": 0,
+        "group": "PLAYING CARD SUITS",
+        "members": [
+          "CLUB",
+          "DIAMOND",
+          "HEART",
+          "SPADE"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "GOLF CLUBS",
+        "members": [
+          "IRON",
+          "PUTTER",
+          "WEDGE",
+          "WOOD"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "YEARN",
+        "members": [
+          "ACHE",
+          "LONG",
+          "PINE",
+          "THIRST"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "INSUFFICIENT",
+        "members": [
+          "LOW",
+          "SHORT",
+          "SHY",
+          "WANTING"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 502,
+    "date": "2024-10-25",
+    "answers": [
+      {
+        "level": 0,
+        "group": "\u2022",
+        "members": [
+          "DOT",
+          "PERIOD",
+          "POINT",
+          "TITTLE"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "EVENT WITH DANCING",
+        "members": [
+          "BALL",
+          "FORMAL",
+          "HOP",
+          "RAVE"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "IPHONE MESSAGE TAPBACK RESPONSES",
+        "members": [
+          "EXCLAMATION POINTS",
+          "HEART",
+          "QUESTION MARK",
+          "THUMBS UP"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "\u201cPAN\u201d",
+        "members": [
+          "BAD REVIEW",
+          "CAMERA MOVEMENT",
+          "COOKWARE",
+          "SATYR"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 178,
+    "date": "2023-12-06",
+    "answers": [
+      {
+        "level": 0,
+        "group": "FOUND ON SHEET MUSIC",
+        "members": [
+          "CLEF",
+          "NOTE",
+          "REST",
+          "STAFF"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "ZODIAC SYMBOLS",
+        "members": [
+          "BULL",
+          "CRAB",
+          "SCALES",
+          "TWINS"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "RECORD LABELS",
+        "members": [
+          "CAPITOL",
+          "COLUMBIA",
+          "VIRGIN",
+          "ISLAND"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "ZODIAC SIGN BEGINNINGS",
+        "members": [
+          "CAN",
+          "GEM",
+          "LIB",
+          "TAU"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 230,
+    "date": "2024-01-27",
+    "answers": [
+      {
+        "level": 0,
+        "group": "HURT",
+        "members": [
+          "ACHE",
+          "BURN",
+          "SMART",
+          "STING"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "LOOK AFTER",
+        "members": [
+          "GUARD",
+          "MIND",
+          "TEND",
+          "WATCH"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "SOUGHT AFTER IN \u201cTHE WIZARD OF OZ\u201d",
+        "members": [
+          "BRAIN",
+          "COURAGE",
+          "HEART",
+          "HOME"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "SILENT \u201cW\u201d",
+        "members": [
+          "ANSWER",
+          "TWO",
+          "WRIST",
+          "WRONG"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 689,
+    "date": "2025-04-30",
+    "answers": [
+      {
+        "level": 0,
+        "group": "PARTS OF A SHOE",
+        "members": [
+          "HEEL",
+          "SOLE",
+          "TONGUE",
+          "UPPER"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "ACCOMMODATION",
+        "members": [
+          "CAPACITY",
+          "CHAIRS",
+          "ROOM",
+          "SEATING"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "REPUTATION",
+        "members": [
+          "FACE",
+          "IMAGE",
+          "REGARD",
+          "STANDING"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "ENDING WITH SYNONYMS FOR \u201cYUCK\u201d",
+        "members": [
+          "DYNASTY",
+          "ENGROSS",
+          "GIMMICK",
+          "MILDEW"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 420,
+    "date": "2024-08-04",
+    "answers": [
+      {
+        "level": 0,
+        "group": "KIDDO",
+        "members": [
+          "BUDDY",
+          "CHAMP",
+          "SPORT",
+          "TIGER"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "UP FOR IT",
+        "members": [
+          "AMENABLE",
+          "DOWN",
+          "GAME",
+          "WILLING"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "BEGINNING WITH DOUBLE LETTERS",
+        "members": [
+          "AARDVARK",
+          "EERIE",
+          "LLAMA",
+          "OOZE"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "NICKNAMES FOR THE SEA, WITH \u201cTHE\u201d",
+        "members": [
+          "BLUE",
+          "BRINY",
+          "DEEP",
+          "DRINK"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 34,
+    "date": "2023-07-15",
+    "answers": [
+      {
+        "level": 0,
+        "group": "PLEASANT SMELLS",
+        "members": [
+          "AROMA",
+          "BOUQUET",
+          "FRAGRANCE",
+          "SCENT"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "MUSIC GENRES",
+        "members": [
+          "BLUES",
+          "COUNTRY",
+          "FUNK",
+          "SOUL"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "ROCK PAPER SCISSORS",
+        "members": [
+          "PAPER",
+          "ROCK",
+          "SCISSORS",
+          "SHOOT"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "MALE ANIMALS",
+        "members": [
+          "BOAR",
+          "BUCK",
+          "BULL",
+          "JACK"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 46,
+    "date": "2023-07-27",
+    "answers": [
+      {
+        "level": 0,
+        "group": "MOVIE TITLE CITIES",
+        "members": [
+          "CHICAGO",
+          "MUNICH",
+          "PHILADELPHIA",
+          "RIO"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "FASHION MAGAZINES",
+        "members": [
+          "ALLURE",
+          "ELLE",
+          "GLAMOUR",
+          "W"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "STORMS",
+        "members": [
+          "BLIZZARD",
+          "CYCLONE",
+          "SQUALL",
+          "TORNADO"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "COCKTAILS",
+        "members": [
+          "COSMOPOLITAN",
+          "HURRICANE",
+          "MANHATTAN",
+          "SCREWDRIVER"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 802,
+    "date": "2025-08-21",
+    "answers": [
+      {
+        "level": 0,
+        "group": "BLUNDER",
+        "members": [
+          "BOO-BOO",
+          "FLUB",
+          "GAFFE",
+          "NO-NO"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "LANDS OF THE IMAGINATION",
+        "members": [
+          "DREAM",
+          "FANTASY",
+          "LA-LA",
+          "NEVER NEVER"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "THINGS WITH ANTENNA/E",
+        "members": [
+          "INSECT",
+          "RADIO TOWER",
+          "SATELLITE DISH",
+          "TELETUBBY"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "___ DOODLE",
+        "members": [
+          "CHEESE",
+          "DIPSY",
+          "GOOGLE",
+          "YANKEE"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 670,
+    "date": "2025-04-11",
+    "answers": [
+      {
+        "level": 0,
+        "group": "SOURCES OF VITAMINS",
+        "members": [
+          "CITRUS",
+          "LEAFY GREENS",
+          "SUNSHINE",
+          "SUPPLEMENTS"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "PLACES USED IN RETAIL SUFFIXES",
+        "members": [
+          "CITY",
+          "LAND",
+          "TOWN",
+          "WORLD"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "PLACES TO FIND STARS",
+        "members": [
+          "AMERICAN FLAG",
+          "GALAXY",
+          "RED CARPET",
+          "UBER RATING"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "WORDS AFTER \u201cGO\u201d",
+        "members": [
+          "ALL OUT",
+          "BETWEEN",
+          "KART",
+          "STEADY"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 313,
+    "date": "2024-04-19",
+    "answers": [
+      {
+        "level": 0,
+        "group": "ATTACH WITH ADHESIVE",
+        "members": [
+          "ADHERE",
+          "GLUE",
+          "PASTE",
+          "STICK"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "PUBLISHED LINES",
+        "members": [
+          "COPY",
+          "TEXT",
+          "WORDS",
+          "WRITING"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "DIAMOND QUALITIES",
+        "members": [
+          "CARAT",
+          "CLARITY",
+          "COLOR",
+          "CUT"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "A-___",
+        "members": [
+          "LIST",
+          "OK",
+          "PLUS",
+          "ROD"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 240,
+    "date": "2024-02-06",
+    "answers": [
+      {
+        "level": 0,
+        "group": "OSTENTATIOUS, AS AN OUTFIT",
+        "members": [
+          "BRIGHT",
+          "FLASHY",
+          "GARISH",
+          "LOUD"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "EUPHEMISMS FOR FLATULENCE",
+        "members": [
+          "GAS",
+          "STINKER",
+          "TOOT",
+          "WIND"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "KINDS OF BLOND",
+        "members": [
+          "DIRTY",
+          "HONEY",
+          "PLATINUM",
+          "STRAWBERRY"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "WHAT \u201cO\u201d MIGHT MEAN",
+        "members": [
+          "HUG",
+          "OF",
+          "OXYGEN",
+          "ZERO"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 263,
+    "date": "2024-02-29",
+    "answers": [
+      {
+        "level": 0,
+        "group": "PROPEL INTO THE AIR",
+        "members": [
+          "HOP",
+          "JUMP",
+          "LEAP",
+          "SPRING"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "PLACE TO STORE VALUABLES",
+        "members": [
+          "CHEST",
+          "COFFER",
+          "SAFE",
+          "VAULT"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "PERIOD",
+        "members": [
+          "AGE",
+          "DAY",
+          "ERA",
+          "TIME"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "ANIMALS BACKWARD",
+        "members": [
+          "DRIB",
+          "FLOW",
+          "REED",
+          "TANG"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 291,
+    "date": "2024-03-28",
+    "answers": [
+      {
+        "level": 0,
+        "group": "EXITED",
+        "members": [
+          "DEPARTED",
+          "LEFT",
+          "SPLIT",
+          "WENT"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "ONE FLYING AN AIRPLANE",
+        "members": [
+          "ACE",
+          "AVIATOR",
+          "FLIER",
+          "PILOT"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "KINDS OF WHALES",
+        "members": [
+          "BLUE",
+          "FIN",
+          "GRAY",
+          "RIGHT"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "THINGS WITH SLOTS",
+        "members": [
+          "ATM",
+          "CASINO",
+          "SCHEDULE",
+          "SPATULA"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 511,
+    "date": "2024-11-03",
+    "answers": [
+      {
+        "level": 0,
+        "group": "HEARTWARMING",
+        "members": [
+          "MOVING",
+          "SWEET",
+          "TENDER",
+          "TOUCHING"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "SNEAKING SUSPICION",
+        "members": [
+          "FEELING",
+          "HUNCH",
+          "IMPRESSION",
+          "SENSE"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "LEGAL SESSION",
+        "members": [
+          "HEARING",
+          "INQUIRY",
+          "PROCEEDING",
+          "TRIAL"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "EASY ___",
+        "members": [
+          "CHAIR",
+          "LISTENING",
+          "MONEY",
+          "STREET"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 753,
+    "date": "2025-07-03",
+    "answers": [
+      {
+        "level": 0,
+        "group": "CORRESPONDENCE",
+        "members": [
+          "CONTACT",
+          "DEALINGS",
+          "EXCHANGE",
+          "INTERACTION"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "AIRPORT BOARD INFO",
+        "members": [
+          "ARRIVAL",
+          "DESTINATION",
+          "FLIGHT",
+          "GATE"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "PRO ATHLETE DATA",
+        "members": [
+          "COLLEGE",
+          "NUMBER",
+          "POSITION",
+          "TEAM"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "FARMERS\u2019 THINGS",
+        "members": [
+          "ALMANAC",
+          "INSURANCE",
+          "MARKET",
+          "TAN"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 86,
+    "date": "2023-09-05",
+    "answers": [
+      {
+        "level": 0,
+        "group": "INFORMATION DISPLAYS",
+        "members": [
+          "CHART",
+          "DIAGRAM",
+          "GRAPH",
+          "MAP"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "ADDITIONAL BENEFIT",
+        "members": [
+          "BONUS",
+          "EXTRA",
+          "ICING",
+          "PERK"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "THANKSGIVING FOOD",
+        "members": [
+          "GRAVY",
+          "PIE",
+          "STUFFING",
+          "TURKEY"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "SONG TITLES WITH PARENTHESES",
+        "members": [
+          "I RAN",
+          "ISTANBUL",
+          "MONTERO",
+          "SATISFACTION"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 743,
+    "date": "2025-06-23",
+    "answers": [
+      {
+        "level": 0,
+        "group": "KINDS OF JEANS",
+        "members": [
+          "BOYFRIEND",
+          "FLARE",
+          "MOM",
+          "SKINNY"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "FICTION CATEGORIES",
+        "members": [
+          "HISTORICAL",
+          "LITERARY",
+          "SPECULATIVE",
+          "YOUNG ADULT"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "WORDS IN HEMINGWAY TITLES",
+        "members": [
+          "BELL",
+          "FAREWELL",
+          "OLD MAN",
+          "SUN"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "___ GLASS GLASSWARE",
+        "members": [
+          "COCKTAIL",
+          "COLLINS",
+          "OLD FASHIONED",
+          "SHOT"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 650,
+    "date": "2025-03-22",
+    "answers": [
+      {
+        "level": 0,
+        "group": "MUSICAL INSTRUMENTS",
+        "members": [
+          "TAMBOURINE",
+          "THEREMIN",
+          "TIMPANI",
+          "TROMBONE"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "KNICKKNACK",
+        "members": [
+          "TCHOTCHKE",
+          "THINGAMAJIG",
+          "TRIFLE",
+          "TRINKET"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "WORDS WITH THE PREFIX MEANING \u201cTHREE\u201d",
+        "members": [
+          "TRIANGLE",
+          "TRIDENT",
+          "TRILLION",
+          "TRILOBITE"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "WORDS ABBREVIATED WITH \u201cT\u201d + LETTER",
+        "members": [
+          "TELEVISION",
+          "TOUCHDOWN",
+          "TRADEMARK",
+          "TUBERCULOSIS"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 426,
+    "date": "2024-08-10",
+    "answers": [
+      {
+        "level": 0,
+        "group": "THINGS THAT ARE RED",
+        "members": [
+          "DEVIL",
+          "MARS",
+          "ROSE",
+          "STRAWBERRY"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "BE IN COMMISSION",
+        "members": [
+          "FUNCTION",
+          "OPERATE",
+          "RUN",
+          "WORK"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "MICROSOFT PRODUCTS",
+        "members": [
+          "EDGE",
+          "OFFICE",
+          "TEAMS",
+          "WINDOWS"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "BIOPICS",
+        "members": [
+          "BLONDE",
+          "JOBS",
+          "MILK",
+          "VICE"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 676,
+    "date": "2025-04-17",
+    "answers": [
+      {
+        "level": 0,
+        "group": "CENTRAL SECTION OF THE BODY",
+        "members": [
+          "CORE",
+          "MIDRIFF",
+          "TORSO",
+          "TRUNK"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "COMPONENTS OF A PIZZA",
+        "members": [
+          "CHEESE",
+          "CRUST",
+          "SAUCE",
+          "TOPPINGS"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "UNITS OF BEER",
+        "members": [
+          "CASE",
+          "FORTY",
+          "GROWLER",
+          "SIX-PACK"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "BASEBALL GREATS",
+        "members": [
+          "BONDS",
+          "MANTLE",
+          "TROUT",
+          "YOUNG"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 625,
+    "date": "2025-02-25",
+    "answers": [
+      {
+        "level": 0,
+        "group": "ENTHUSIASM",
+        "members": [
+          "GUSTO",
+          "PASSION",
+          "RELISH",
+          "ZEST"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "\u201cMANY\u201d IN DIFFERENT LANGUAGES",
+        "members": [
+          "BEAUCOUP",
+          "MOLTO",
+          "MUCHO",
+          "MULTI"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "RECTANGULAR PRISMS",
+        "members": [
+          "BRICK",
+          "FISH TANK",
+          "MICROWAVE",
+          "SHOEBOX"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "RHYME WITH U.S. COINS",
+        "members": [
+          "JENNY",
+          "LIME",
+          "MORTAR",
+          "PICKLE"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 849,
+    "date": "2025-10-07",
+    "answers": [
+      {
+        "level": -1,
+        "group": "GOSSIP",
+        "members": [
+          "BUZZ",
+          "DIRT",
+          "DISH",
+          "TALK"
+        ]
+      },
+      {
+        "level": -1,
+        "group": "SEEN AT A WEDDING",
+        "members": [
+          "ALTAR",
+          "BOUQUET",
+          "CAKE",
+          "RING"
+        ]
+      },
+      {
+        "level": -1,
+        "group": "TEAM",
+        "members": [
+          "BUNCH",
+          "CREW",
+          "GROUP",
+          "PACK"
+        ]
+      },
+      {
+        "level": -1,
+        "group": "MUSICALS PLUS STARTING LETTER",
+        "members": [
+          "BRENT",
+          "CHAIR",
+          "FANNIE",
+          "SCATS"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 864,
+    "date": "2025-10-22",
+    "answers": [
+      {
+        "level": -1,
+        "group": "UTILITIES",
+        "members": [
+          "ELECTRIC",
+          "GAS",
+          "TELEPHONE",
+          "WATER"
+        ]
+      },
+      {
+        "level": -1,
+        "group": "ADAPT TO FIT ONE'S NEEDS",
+        "members": [
+          "FASHION",
+          "MOLD",
+          "SHAPE",
+          "TAILOR"
+        ]
+      },
+      {
+        "level": -1,
+        "group": "KINDS OF ANTS",
+        "members": [
+          "ARMY",
+          "CARPENTER",
+          "FIRE",
+          "PHARAOH"
+        ]
+      },
+      {
+        "level": -1,
+        "group": "COPY___",
+        "members": [
+          "CAT",
+          "PASTA",
+          "RIGHT",
+          "WRITER"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "date": "2023-07-13",
+    "answers": [
+      {
+        "level": 0,
+        "group": "SHOE PARTS",
+        "members": [
+          "HEEL",
+          "LACE",
+          "SOLE",
+          "TONGUE"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "BOARD GAMES",
+        "members": [
+          "CLUE",
+          "RISK",
+          "SORRY",
+          "TROUBLE"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "FICTIONAL SPIES",
+        "members": [
+          "BOND",
+          "HUNT",
+          "RYAN",
+          "SMART"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "RUBBER ___",
+        "members": [
+          "BAND",
+          "CEMENT",
+          "DUCKIE",
+          "SOUL"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 654,
+    "date": "2025-03-26",
+    "answers": [
+      {
+        "level": 0,
+        "group": "PARTS OF A TABLE SETTING",
+        "members": [
+          "FORK",
+          "GLASS",
+          "NAPKIN",
+          "PLATE"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "INCREASED, WITH \u201cUP\u201d",
+        "members": [
+          "FLEW",
+          "ROSE",
+          "SHOT",
+          "THRUST"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "KINDS OF DIGITAL STORAGE",
+        "members": [
+          "CARD",
+          "CLOUD",
+          "DISK",
+          "DRIVE"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "UNITS OF VOLUME PLUS LETTER",
+        "members": [
+          "BOUNCE",
+          "GALLEON",
+          "PINOT",
+          "QUARTZ"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 403,
+    "date": "2024-07-18",
+    "answers": [
+      {
+        "level": 0,
+        "group": "OPEN SPACE",
+        "members": [
+          "COURT",
+          "PLAZA",
+          "SQUARE",
+          "YARD"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "BOXING UNIT",
+        "members": [
+          "BOUT",
+          "CONTEST",
+          "MATCH",
+          "ROUND"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "GLITZINESS",
+        "members": [
+          "DAZZLE",
+          "FLASH",
+          "POMP",
+          "RITZ"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "EMOJI",
+        "members": [
+          "FIRE",
+          "HEART",
+          "SKULL",
+          "SPARKLES"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 728,
+    "date": "2025-06-08",
+    "answers": [
+      {
+        "level": 0,
+        "group": "PERSIST",
+        "members": [
+          "HOLD",
+          "LAST",
+          "STAND",
+          "STAY"
+        ]
+      },
+      {
+        "level": 1,
+        "group": "ANIMAL METAPHORS IN ECONOMICS",
+        "members": [
+          "BEAR",
+          "BULL",
+          "DOVE",
+          "HAWK"
+        ]
+      },
+      {
+        "level": 2,
+        "group": "SIDEBAR INFO ON A PERSON\u2019S WIKIPEDIA PAGE",
+        "members": [
+          "BORN",
+          "EDUCATION",
+          "OCCUPATION",
+          "SPOUSE"
+        ]
+      },
+      {
+        "level": 3,
+        "group": "HOMOPHONES OF SLANG FOR MONEY",
+        "members": [
+          "BRED",
+          "CACHE",
+          "DOE",
+          "LUTE"
+        ]
+      }
+    ]
+  }
+]
