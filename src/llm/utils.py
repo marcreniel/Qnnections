@@ -53,19 +53,16 @@ def parse_solution(output_text: str, original_words: List[str]) -> Optional[List
         parsed_groups.append(norm_members)
         all_guessed_words.extend(norm_members)
         
-    # Validate against original words
-    norm_original = sorted([normalize_word(w) for w in original_words])
-    norm_guessed = sorted(all_guessed_words)
+    # Relaxed validation: Just check if we have 4 groups of 4 words.
+    # We no longer enforce that they are a perfect permutation of original_words.
+    # This allows the model to get partial credit even if it hallucinates or repeats words.
     
-    if norm_original != norm_guessed:
-        return None
-        
     return parsed_groups
 
 def compute_reward(
     pred_groups: Optional[List[List[str]]],
     true_groups: List[List[str]],
-    strict: bool = True
+    # strict: bool = True  <-- Removed unused parameter
 ) -> float:
     """
     Computes the reward for the one-shot LLM agent using the unified scheme:

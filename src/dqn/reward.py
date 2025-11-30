@@ -13,6 +13,8 @@ BASE_REWARDS = {
 }
 SUCCESS_BONUS = 5.0
 FAILURE_PENALTY = -3.0
+PER_WORD_REWARD = 0.2
+
 # MAX_REWARD_MAGNITUDE = 8.0  <-- Removed normalization for DQN
 
 def get_second_order_cohesion(words: Sequence[str], source: str) -> float:

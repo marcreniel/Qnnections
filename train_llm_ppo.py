@@ -102,7 +102,7 @@ def evaluate_bandit_agent(
 
         true_groups = get_true_groups(puzzle)
         pred_groups = parse_solution(gen_text, shuffled_words)
-        reward = compute_reward(pred_groups, true_groups, strict=True)
+        reward = compute_reward(pred_groups, true_groups)
 
         rewards.append(reward)
         success_full_list.append(1.0 if reward == 1.0 else 0.0)
@@ -220,7 +220,7 @@ def main() -> None:
             gen_text = tokenizer.decode(gen_tokens, skip_special_tokens=True)
             true_groups = get_true_groups(puzzle)
             pred_groups = parse_solution(gen_text, shuffled_words)
-            rewards.append(compute_reward(pred_groups, true_groups, strict=True))
+            rewards.append(compute_reward(pred_groups, true_groups))
 
         input_ids = pad_sequence(
             sequences, batch_first=True, padding_value=tokenizer.pad_token_id
