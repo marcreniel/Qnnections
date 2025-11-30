@@ -54,7 +54,31 @@ Rules:
 - Each group should represent a coherent category (e.g., fruits, sports teams, musical instruments).
 - Your job is to partition ALL 16 words into 4 groups of 4, and name the categories.
 
-Here are the 16 words (in random order):
+Here is an example of a solved puzzle:
+Words: "APPLE, BANANA, CHERRY, DATE, DOG, CAT, BIRD, FISH, RED, BLUE, GREEN, YELLOW, ONE, TWO, THREE, FOUR"
+Response:
+{{
+  "groups": [
+    {{
+      "category": "FRUITS",
+      "members": ["APPLE", "BANANA", "CHERRY", "DATE"]
+    }},
+    {{
+      "category": "ANIMALS",
+      "members": ["DOG", "CAT", "BIRD", "FISH"]
+    }},
+    {{
+      "category": "COLORS",
+      "members": ["RED", "BLUE", "GREEN", "YELLOW"]
+    }},
+    {{
+      "category": "NUMBERS",
+      "members": ["ONE", "TWO", "THREE", "FOUR"]
+    }}
+  ]
+}}
+
+Here are the 16 words for your puzzle (in random order):
 {words_str}
 
 Respond ONLY with a JSON object with this exact schema:

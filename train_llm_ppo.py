@@ -193,11 +193,11 @@ def main() -> None:
         base_config = getattr(model, "pretrained_model", model).config
         model.generation_config = GenerationConfig.from_model_config(base_config)
 
-    # Enable gradient checkpointing to save memory
-    if hasattr(model, "gradient_checkpointing_enable"):
-        model.gradient_checkpointing_enable()
-    elif hasattr(model, "pretrained_model") and hasattr(model.pretrained_model, "gradient_checkpointing_enable"):
-        model.pretrained_model.gradient_checkpointing_enable()
+    # Gradient checkpointing removed for speed as requested
+    # if hasattr(model, "gradient_checkpointing_enable"):
+    #     model.gradient_checkpointing_enable()
+    # elif hasattr(model, "pretrained_model") and hasattr(model.pretrained_model, "gradient_checkpointing_enable"):
+    #     model.pretrained_model.gradient_checkpointing_enable()
 
     # Initialize WandB
     wandb.init(
@@ -259,6 +259,11 @@ def main() -> None:
             true_groups = get_true_groups(puzzle)
             pred_groups = parse_solution(gen_text, shuffled_words)
             rewards.append(compute_reward(pred_groups, true_groups))
+
+            if step % 10 == 0 and len(sequences) == 1:
+                print(f"\n[Step {step}] Sample Generation:\n{gen_text}\n")
+                print(f"[Step {step}] Parsed Groups: {pred_groups}")
+                print(f"[Step {step}] Reward: {rewards[-1]}")
 
         input_ids = pad_sequence(
             sequences, batch_first=True, padding_value=tokenizer.pad_token_id
@@ -326,10 +331,12 @@ def main() -> None:
         if (step + 1) % args.save_freq == 0:
             ckpt_dir = f"{args.output_dir}/checkpoint-{step + 1}"
             print(f"Saving checkpoint to {ckpt_dir}...")
+            os.makedirs(ckpt_dir, exist_ok=True)
             model.save_pretrained(ckpt_dir)
             tokenizer.save_pretrained(ckpt_dir)
 
     print(f"Saving PPO model to {args.output_dir}...")
+    os.makedirs(args.output_dir, exist_ok=True)
     model.save_pretrained(args.output_dir)
     tokenizer.save_pretrained(args.output_dir)
     wandb.finish()
