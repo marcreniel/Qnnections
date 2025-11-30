@@ -73,6 +73,7 @@ def main():
     parser.add_argument("--mini_batch_size", type=int, default=4)
     parser.add_argument("--lr", type=float, default=1e-6)
     parser.add_argument("--eval_freq", type=int, default=50)
+    parser.add_argument("--save_freq", type=int, default=100)
     
     args = parser.parse_args()
     
@@ -189,6 +190,13 @@ def main():
         if (step + 1) % args.eval_freq == 0:
             metrics = evaluate_bandit_agent(ppo_trainer.model, tokenizer, eval_puzzles, device=device)
             tqdm.write(f"Eval @ {step+1}: Success={metrics['success_full']:.2%} | Avg Reward={metrics['avg_reward']:.2f}")
+            
+        # Checkpoint
+        if (step + 1) % args.save_freq == 0:
+            ckpt_dir = f"{args.output_dir}/checkpoint-{step+1}"
+            tqdm.write(f"Saving checkpoint to {ckpt_dir}...")
+            ppo_trainer.model.save_pretrained(ckpt_dir)
+            tokenizer.save_pretrained(ckpt_dir)
             
     # Save
     print(f"Saving PPO model to {args.output_dir}...")
