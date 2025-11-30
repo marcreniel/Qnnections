@@ -52,7 +52,8 @@ def compute_reward(
     episode_end: str | None,
     group_words: Sequence[str],
     embed_source: str,
-    weights: dict[str, float]
+    weights: dict[str, float],
+    overlap_count: int = 0
 ) -> float:
     """
     Computes the scalar reward.
@@ -66,10 +67,15 @@ def compute_reward(
             - "correctness": Weight for game feedback
             - "first_order": Weight for 1st order cohesion
             - "second_order": Weight for 2nd order cohesion
+        overlap_count: Number of correct words in the guess (0-4)
     """
     
     # 1. Correctness Term
     base = BASE_REWARDS.get(result_str, 0.0)
+    
+    # Add per-word reward (skip for one_away as requested)
+    if result_str != "one_away":
+        base += overlap_count * PER_WORD_REWARD
     
     if episode_end == "success":
         base += SUCCESS_BONUS

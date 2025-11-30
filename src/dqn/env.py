@@ -153,7 +153,8 @@ class ConnectionsEnv:
             episode_end=episode_end,
             group_words=guess_words,
             embed_source=self.data_loader.embedding_source if self.data_loader else "gemma",
-            weights=self.reward_weights
+            weights=self.reward_weights,
+            overlap_count=best_overlap
         )
         
         info = {

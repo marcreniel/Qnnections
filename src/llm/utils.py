@@ -73,13 +73,14 @@ def compute_reward(
     - One-away (3/4): +1
     - Wrong Group: -2
     - Win Bonus (all 4 correct): +5
-    - Lose Penalty (otherwise): -4
+    - Lose Penalty (otherwise): -3
+    - Per-word Reward: +0.2 per correct word
     
-    Normalized by max possible score (17.0) to range roughly [-1, 1].
+    Normalized by max possible score (20.2) to range roughly [-1, 1].
     """
     if pred_groups is None:
         # Invalid format is treated as a severe failure
-        # Min possible score is -12 (4 wrong + lose). -1.0 is a fair proxy.
+        # Min possible score is -11 (4 wrong + lose). -1.0 is a fair proxy.
         return -1.0
         
     score = 0.0
@@ -97,6 +98,10 @@ def compute_reward(
             if overlap > best_overlap:
                 best_overlap = overlap
         
+        # Add per-word reward (skip for one_away/3 overlap)
+        if best_overlap != 3:
+            score += best_overlap * 0.2
+        
         if best_overlap == 4:
             score += 3.0
             correct_count += 1
@@ -110,5 +115,5 @@ def compute_reward(
     else:
         score += -3.0 # Failure Penalty
         
-    # Normalize by max possible score (4 * 3 + 5 = 17)
-    return score / 17.0
+    # Normalize by max possible score (4 * (3 + 0.8) + 5 = 20.2)
+    return score / 20.2
