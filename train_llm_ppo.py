@@ -114,6 +114,10 @@ def evaluate_bandit_agent(
     return {"success_full": success_rate, "avg_reward": avg_reward}
 
 
+from peft import LoraConfig
+
+# ... (imports)
+
 def build_arg_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     parser.add_argument("--model_name", type=str, default="meta-llama/Llama-3.2-1B-Instruct")
@@ -132,6 +136,7 @@ def build_arg_parser() -> argparse.ArgumentParser:
     parser.add_argument("--top_p", type=float, default=0.95)
     parser.add_argument("--top_k", type=int, default=50)
     parser.add_argument("--max_new_tokens", type=int, default=256)
+    parser.add_argument("--use_lora", action="store_true", help="Use LoRA for memory-efficient training")
     return parser
 
 
@@ -156,10 +161,24 @@ def main() -> None:
         )
 
     dtype = torch.bfloat16 if torch.cuda.is_available() or torch.backends.mps.is_available() else torch.float32
+    
+    peft_config = None
+    if args.use_lora:
+        print("Enabling LoRA...")
+        peft_config = LoraConfig(
+            r=16,
+            lora_alpha=32,
+            lora_dropout=0.05,
+            bias="none",
+            task_type="CAUSAL_LM",
+            target_modules=["q_proj", "v_proj"] # Common for Llama/Qwen
+        )
+
     model = AutoModelForCausalLMWithValueHead.from_pretrained(
         args.model_name,
         torch_dtype=dtype,
         device_map="auto" if torch.cuda.is_available() else None,
+        peft_config=peft_config
     )
     if not hasattr(model, "generation_config") or model.generation_config is None:
         base_config = getattr(model, "pretrained_model", model).config
