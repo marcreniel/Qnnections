@@ -115,14 +115,15 @@ def evaluate_bandit_agent(
 
 
 from peft import LoraConfig
+import wandb
 
 # ... (imports)
 
 def build_arg_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model_name", type=str, default="meta-llama/Llama-3.2-1B-Instruct")
+    parser.add_argument("--model_name", type=str, default="Qwen/Qwen3-4B-Instruct-2507")
     parser.add_argument("--data_path", type=str, default="data/raw/connections.json")
-    parser.add_argument("--output_dir", type=str, default="llama-3.2-1b-connections-ppo")
+    parser.add_argument("--output_dir", type=str, default="connections-llm-ppo")
     parser.add_argument("--steps", type=int, default=1000)
     parser.add_argument("--batch_size", type=int, default=2)
     parser.add_argument("--lr", type=float, default=1e-6)
@@ -137,6 +138,14 @@ def build_arg_parser() -> argparse.ArgumentParser:
     parser.add_argument("--top_k", type=int, default=50)
     parser.add_argument("--max_new_tokens", type=int, default=256)
     parser.add_argument("--use_lora", action="store_true", help="Use LoRA for memory-efficient training")
+    parser.add_argument("--lora_rank", type=int, default=64, help="LoRA rank")
+    parser.add_argument("--lora_alpha", type=int, default=128, help="LoRA alpha")
+    
+    # WandB arguments
+    parser.add_argument("--wandb_project", type=str, default="cs238_llmppo", help="WandB project name")
+    parser.add_argument("--wandb_entity", type=str, default="qn_cs238", help="WandB entity (team) name")
+    parser.add_argument("--wandb_name", type=str, default=None, help="WandB run name")
+    
     return parser
 
 
@@ -164,10 +173,10 @@ def main() -> None:
     
     peft_config = None
     if args.use_lora:
-        print("Enabling LoRA...")
+        print(f"Enabling LoRA (Rank={args.lora_rank}, Alpha={args.lora_alpha})...")
         peft_config = LoraConfig(
-            r=16,
-            lora_alpha=32,
+            r=args.lora_rank,
+            lora_alpha=args.lora_alpha,
             lora_dropout=0.05,
             bias="none",
             task_type="CAUSAL_LM",
@@ -190,6 +199,14 @@ def main() -> None:
     elif hasattr(model, "pretrained_model") and hasattr(model.pretrained_model, "gradient_checkpointing_enable"):
         model.pretrained_model.gradient_checkpointing_enable()
 
+    # Initialize WandB
+    wandb.init(
+        project=args.wandb_project,
+        entity=args.wandb_entity,
+        name=args.wandb_name,
+        config=vars(args)
+    )
+
     device = torch.device(
         "cuda" if torch.cuda.is_available() else ("mps" if torch.backends.mps.is_available() else "cpu")
     )
@@ -208,7 +225,8 @@ def main() -> None:
     print(f"Using device: {device}")
     print(f"Starting PPO training for {args.steps} steps...")
 
-    for step in tqdm(range(args.steps)):
+    pbar = tqdm(range(args.steps))
+    for step in pbar:
         batch_puzzles = random.sample(train_puzzles, args.batch_size)
 
         sequences: List[torch.Tensor] = []
@@ -216,6 +234,7 @@ def main() -> None:
         response_lens: List[int] = []
         rewards: List[float] = []
 
+        # 1. Generation Phase
         for puzzle in batch_puzzles:
             prompt, shuffled_words = build_prompt(puzzle, shuffle_words=True)
             messages = [
@@ -256,47 +275,64 @@ def main() -> None:
 
         advantages = rewards_tensor - old_values
         advantages = (advantages - advantages.mean()) / advantages.std().clamp_min(1e-6)
-        targets = rewards_tensor
+        targets = rewards_tensor # This is the 'returns' in PPO, for value function update
 
+        # 3. PPO Update Phase
         model.train()
         new_logprobs, new_values = compute_logprobs_and_values(
             model, input_ids, attention_mask, prompt_lens_tensor, response_lens_tensor
         )
         ratio = torch.exp(new_logprobs - old_logprobs)
         clipped_ratio = torch.clamp(ratio, 1.0 - args.cliprange, 1.0 + args.cliprange)
-        pg_loss = -torch.min(advantages * ratio, advantages * clipped_ratio)
+        pg_loss = -torch.min(advantages * ratio, advantages * clipped_ratio).mean()
 
         value_clipped = old_values + torch.clamp(new_values - old_values, -args.value_clip, args.value_clip)
         value_loss_unclipped = (new_values - targets) ** 2
         value_loss_clipped = (value_clipped - targets) ** 2
-        vf_loss = 0.5 * torch.max(value_loss_unclipped, value_loss_clipped)
+        vf_loss = 0.5 * torch.max(value_loss_unclipped, value_loss_clipped).mean()
 
-        loss = (pg_loss + args.vf_coef * vf_loss).mean()
+        total_loss = pg_loss + args.vf_coef * vf_loss
         optimizer.zero_grad(set_to_none=True)
-        loss.backward()
+        total_loss.backward()
         torch.nn.utils.clip_grad_norm_(model.parameters(), args.max_grad_norm)
         optimizer.step()
 
-        if (step + 1) % 10 == 0:
-            avg_reward = rewards_tensor.mean().item()
-            tqdm.write(f"Step {step + 1} | Avg Reward: {avg_reward:.2f} | Loss: {loss.item():.4f}")
-            torch.cuda.empty_cache()
+        avg_reward = rewards_tensor.mean().item()
+
+        # Log metrics
+        wandb.log({
+            "step": step,
+            "avg_reward": avg_reward,
+            "pg_loss": pg_loss.item(),
+            "value_loss": vf_loss.item(),
+            "total_loss": total_loss.item(),
+            "mean_advantage": advantages.mean().item(),
+            "mean_return": targets.mean().item()
+        })
+        
+        pbar.set_description(f"Step {step} | R: {avg_reward:.2f} | L: {total_loss.item():.2f}")
+        torch.cuda.empty_cache()
 
         if (step + 1) % args.eval_freq == 0 and eval_puzzles:
-            metrics = evaluate_bandit_agent(model, tokenizer, eval_puzzles, device=device)
-            tqdm.write(
-                f"Eval @ {step + 1}: Success={metrics['success_full']:.2%} | Avg Reward={metrics['avg_reward']:.2f}"
-            )
-
+            print("\nEvaluating...")
+            eval_metrics = evaluate_bandit_agent(model, tokenizer, eval_puzzles, device=device)
+            print(f"Eval Success: {eval_metrics['success_full']:.2%}, Avg Reward: {eval_metrics['avg_reward']:.2f}")
+            
+            wandb.log({
+                "eval/success_rate": eval_metrics['success_full'],
+                "eval/avg_reward": eval_metrics['avg_reward']
+            }, step=step)
+            
         if (step + 1) % args.save_freq == 0:
             ckpt_dir = f"{args.output_dir}/checkpoint-{step + 1}"
-            tqdm.write(f"Saving checkpoint to {ckpt_dir}...")
+            print(f"Saving checkpoint to {ckpt_dir}...")
             model.save_pretrained(ckpt_dir)
             tokenizer.save_pretrained(ckpt_dir)
 
     print(f"Saving PPO model to {args.output_dir}...")
     model.save_pretrained(args.output_dir)
     tokenizer.save_pretrained(args.output_dir)
+    wandb.finish()
 
 
 if __name__ == "__main__":
