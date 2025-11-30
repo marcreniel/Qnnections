@@ -68,26 +68,47 @@ def compute_reward(
     strict: bool = True
 ) -> float:
     """
-    Strict version:
-      - If pred_groups is None -> reward = -1.0 (invalid format)
-      - Else if partition exactly matches -> 1.0
-      - Else -> 0.0
-      
-    Shaped version (if strict=False):
-      - Returns fraction of correct groups (0.0 to 1.0)
+    Computes the reward for the one-shot LLM agent using the unified scheme:
+    - Correct Group: +3
+    - One-away (3/4): +1
+    - Wrong Group: -2
+    - Win Bonus (all 4 correct): +5
+    - Lose Penalty (otherwise): -4
+    
+    Normalized by max possible score (17.0) to range roughly [-1, 1].
     """
     if pred_groups is None:
+        # Invalid format is treated as a severe failure
+        # Min possible score is -12 (4 wrong + lose). -1.0 is a fair proxy.
         return -1.0
         
-    pred_set = {frozenset(g) for g in pred_groups}
-    true_set = {frozenset(g) for g in true_groups}
+    score = 0.0
+    correct_count = 0
     
-    if strict:
-        if pred_set == true_set:
-            return 1.0
+    # Convert true groups to sets for easier matching
+    true_sets = [set(g) for g in true_groups]
+    
+    for pg in pred_groups:
+        pg_set = set(pg)
+        # Find best match among true groups
+        best_overlap = 0
+        for tg in true_sets:
+            overlap = len(pg_set & tg)
+            if overlap > best_overlap:
+                best_overlap = overlap
+        
+        if best_overlap == 4:
+            score += 3.0
+            correct_count += 1
+        elif best_overlap == 3:
+            score += 1.0
         else:
-            return 0.0
+            score += -2.0
+            
+    if correct_count == 4:
+        score += 5.0 # Win Bonus
     else:
-        # Shaped reward: fraction of correct groups
-        correct_count = len(pred_set & true_set)
-        return correct_count / 4.0
+        score += -3.0 # Failure Penalty
+        
+    # Normalize by max possible score (4 * 3 + 5 = 17)
+    return score / 17.0

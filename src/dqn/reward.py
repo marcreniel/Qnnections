@@ -7,11 +7,13 @@ import numpy as np
 from src.common.embeddings import get_word_embedding, _cosine_similarity
 
 BASE_REWARDS = {
-    "correct": 1.0,
-    "one_away": 0.0,
-    "wrong": -0.5,
+    "correct": 3.0,
+    "one_away": 1.0,
+    "wrong": -2.0,
 }
-SUCCESS_BONUS = 2.0
+SUCCESS_BONUS = 5.0
+FAILURE_PENALTY = -3.0
+# MAX_REWARD_MAGNITUDE = 8.0  <-- Removed normalization for DQN
 
 def get_second_order_cohesion(words: Sequence[str], source: str) -> float:
     """
@@ -68,15 +70,17 @@ def compute_reward(
     
     # 1. Correctness Term
     base = BASE_REWARDS.get(result_str, 0.0)
+    
     if episode_end == "success":
         base += SUCCESS_BONUS
+    elif episode_end == "failure":
+        base += FAILURE_PENALTY
         
-    # If it's a wrong guess, return the harsh penalty immediately.
-    # This prevents "reward hacking" where the agent picks cohesive but wrong groups.
+    # If it's a wrong guess, return the penalty immediately (unnormalized).
     if result_str == "wrong":
         return base
         
-    # If it's one_away, return neutral (0.0) or base.
+    # If it's one_away, return neutral or base (unnormalized).
     if result_str == "one_away":
         return base
 
@@ -92,7 +96,6 @@ def compute_reward(
     
     if w_first != 0 or w_second != 0:
         # We need embeddings
-        # Import here to avoid circular dep if needed, but it's fine
         from src.common.embeddings import group_cohesion
         
         if w_first != 0:
@@ -107,4 +110,5 @@ def compute_reward(
         w_second * r_second
     )
     
+    # Return unnormalized reward
     return total_reward
