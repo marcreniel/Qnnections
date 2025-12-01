@@ -5,7 +5,8 @@ from __future__ import annotations
 import os
 import random
 import re
-from dataclasses import dataclass, field
+import statistics
+from dataclasses import dataclass
 from types import SimpleNamespace
 from typing import Dict, List, Tuple
 
@@ -23,7 +24,33 @@ from trl import AutoModelForCausalLMWithValueHead
 from trl.experimental.ppo import PPOConfig, PPOTrainer
 
 from src.llm.data import build_prompt, get_true_groups, load_puzzles
-from src.llm.utils import compute_reward, parse_solution
+from src.llm.utils import compute_reward, count_correct_words, parse_solution
+
+
+_STATE_DICT_PATCHED = False
+
+
+def _patch_value_head_state_dict() -> None:
+    global _STATE_DICT_PATCHED
+    if _STATE_DICT_PATCHED:
+        return
+
+    original_state_dict = AutoModelForCausalLMWithValueHead.state_dict
+
+    def safe_state_dict(self, *args, **kwargs):  # type: ignore[override]
+        if not self.is_peft_model:
+            pretrained_model_state = self.pretrained_model.state_dict(*args, **kwargs)
+        else:
+            pretrained_model_state = {}
+
+        v_head_state = self.v_head.state_dict(*args, **kwargs)
+        for key, value in list(v_head_state.items()):
+            pretrained_model_state[f"v_head.{key}"] = value
+        return pretrained_model_state
+
+    AutoModelForCausalLMWithValueHead._qn_orig_state_dict = original_state_dict  # type: ignore[attr-defined]
+    AutoModelForCausalLMWithValueHead.state_dict = safe_state_dict  # type: ignore[assignment]
+    _STATE_DICT_PATCHED = True
 
 
 PUZZLE_TAG_PATTERN = re.compile(r"\[\[PUZZLE_ID=(.+?)\]\]")
@@ -36,16 +63,15 @@ class ConnectionsArguments:
 
     model_name_or_path: str = "Qwen/Qwen3-4B-Instruct-2507"
     data_path: str = "data/raw/connections.json"
-    output_dir: str = "connections-llm-ppo"
+    eval_path: str | None = "data/raw/connections_test.json"
     eval_ratio: float = 0.1
     max_train_puzzles: int | None = None
-    seed: int = 42
     shuffle_words: bool = True
     use_lora: bool = False
     lora_rank: int = 64
     lora_alpha: int = 128
-    wandb_project: str | None = None
-    wandb_entity: str | None = None
+    wandb_project: str | None = "cs238_llmppo"
+    wandb_entity: str | None = "qn_cs238"
     wandb_name: str | None = None
     eval_samples: int = 50
     max_new_tokens: int = 256
@@ -195,6 +221,7 @@ class RewardScorer(nn.Module):
         self.response_prefix = response_prefix
         self.backbone = backbone
         self.pad_token_id = pad_token_id
+        self.step_count = 0
 
     def forward(self, hidden_states: torch.Tensor) -> torch.Tensor:  # pragma: no cover - depends on runtime tensors
         if self.backbone.last_input_ids is None:
@@ -202,27 +229,64 @@ class RewardScorer(nn.Module):
 
         batch_tokens = self.backbone.last_input_ids
         rewards: List[float] = []
-        for tokens in batch_tokens:
+        correct_counts: List[int] = []
+        parse_success: List[int] = []
+
+        # Log detailed samples on a cadence to avoid flooding stdout
+        should_log = self.step_count % 10 == 0
+
+        for i, tokens in enumerate(batch_tokens):
             trimmed = self._trim_padding(tokens)
-            decoded = self.tokenizer.decode(trimmed, skip_special_tokens=False)
+            decoded = self.tokenizer.decode(
+                trimmed,
+                skip_special_tokens=True,
+                clean_up_tokenization_spaces=True,
+            )
             puzzle_id = self._extract_puzzle_id(decoded)
             meta = self.metadata.get(puzzle_id)
             response_text = self._extract_response(decoded, meta.prompt_text if meta else None)
-            pred_groups = parse_solution(response_text, meta.original_words if meta else [])
-            reward = compute_reward(pred_groups, meta.true_groups) if meta else -1.0
-            rewards.append(reward)
+            if meta is None:
+                pred_groups = None
+                reward = -1.0 / 3.0
+                correct_words = 0
+            else:
+                pred_groups = parse_solution(response_text, meta.original_words)
+                correct_words = count_correct_words(pred_groups, meta.true_groups)
+                reward = compute_reward(pred_groups, meta.true_groups)
 
+            rewards.append(reward)
+            correct_counts.append(correct_words)
+            parse_success.append(1 if pred_groups is not None else 0)
+
+            if should_log and i == 0:
+                print(f"\n[Step {self.step_count}] Sample Generation:\n{response_text}\n")
+                print(f"[Step {self.step_count}] Parsed Groups: {pred_groups}")
+                print(f"[Step {self.step_count}] Reward: {reward:.3f} (correct_words={correct_words})")
+
+        if should_log and rewards:
+            avg_reward = statistics.fmean(rewards)
+            reward_std = statistics.pstdev(rewards) if len(rewards) > 1 else 0.0
+            parse_rate = sum(parse_success) / len(parse_success)
+            avg_correct = statistics.fmean(correct_counts) if correct_counts else 0.0
+            print(
+                f"[Step {self.step_count}] Reward stats -> mean: {avg_reward:.3f}, std: {reward_std:.3f}, "
+                f"min: {min(rewards):.3f}, max: {max(rewards):.3f}, parse_success: {parse_rate:.2%}, "
+                f"avg_correct_words: {avg_correct:.2f}"
+            )
+
+        self.step_count += 1
         reward_tensor = torch.tensor(rewards, device=hidden_states.device, dtype=hidden_states.dtype)
-        logits = torch.zeros_like(hidden_states)
-        logits[..., 0] = reward_tensor.unsqueeze(-1).expand_as(logits[..., 0])
+        logits = reward_tensor.view(-1, 1, 1).expand(-1, hidden_states.shape[1], 1)
         return logits
 
     def _trim_padding(self, tokens: torch.Tensor) -> torch.Tensor:
         mask = tokens != self.pad_token_id
         if not torch.any(mask):
             return tokens
-        first = int(torch.nonzero(mask, as_tuple=False)[0].item())
-        return tokens[first:]
+        indices = torch.nonzero(mask, as_tuple=False)
+        start = int(indices[0].item())
+        end = int(indices[-1].item()) + 1
+        return tokens[start:end]
 
     def _extract_puzzle_id(self, decoded: str) -> str:
         match = PUZZLE_TAG_PATTERN.search(decoded)
@@ -230,10 +294,10 @@ class RewardScorer(nn.Module):
 
     def _extract_response(self, decoded: str, prompt_text: str | None) -> str:
         if prompt_text and decoded.startswith(prompt_text):
-            return decoded[len(prompt_text):]
+            return decoded[len(prompt_text):].strip()
         if self.response_prefix in decoded:
-            return decoded.split(self.response_prefix, maxsplit=1)[-1]
-        return decoded
+            return decoded.split(self.response_prefix, maxsplit=1)[-1].strip()
+        return decoded.strip()
 
 
 class ConnectionsRewardModel(nn.Module):
@@ -264,6 +328,30 @@ class SharedValueModel(nn.Module):
         self.score = policy_model.v_head
 
 
+def _ensure_dict_forward(model: nn.Module) -> None:
+    """Wrap model.forward so PPOTrainer always receives dict-style outputs."""
+
+    if model is None or getattr(model, "_qn_returns_dict", False):
+        return
+
+    original_forward = model.forward
+
+    def forward(*args, **kwargs):
+        kwargs.setdefault("return_dict", True)
+        output = original_forward(*args, **kwargs)
+        if isinstance(output, tuple):
+            if len(output) >= 2:
+                return SimpleNamespace(logits=output[0], value=output[1])
+            return SimpleNamespace(logits=output[0])
+        return output
+
+    model.forward = forward  # type: ignore[assignment]
+    model._qn_returns_dict = True
+
+
+_patch_value_head_state_dict()
+
+
 def maybe_setup_wandb(args: ConnectionsArguments, training_args: PPOConfig) -> None:
     if not args.wandb_project:
         return
@@ -277,20 +365,37 @@ def maybe_setup_wandb(args: ConnectionsArguments, training_args: PPOConfig) -> N
 
 
 def main() -> None:
-    parser = HfArgumentParser((ConnectionsArguments, PPOConfig))
-    script_args, training_args = parser.parse_args_into_dataclasses()
-    training_args.output_dir = script_args.output_dir
+    training_parser = HfArgumentParser(PPOConfig)
+    *training_args_list, remaining = training_parser.parse_args_into_dataclasses(return_remaining_strings=True)
+    training_args = training_args_list[0]
+
+    script_parser = HfArgumentParser(ConnectionsArguments)
+    if remaining is None:
+        remaining = []
+    (script_args,) = script_parser.parse_args_into_dataclasses(args=remaining)
+    if not training_args.output_dir:
+        training_args.output_dir = "connections-llm-ppo"
+    if training_args.seed is None:
+        training_args.seed = 42
+    
     training_args.response_length = script_args.max_new_tokens
     maybe_setup_wandb(script_args, training_args)
 
-    random.seed(script_args.seed)
-    torch.manual_seed(script_args.seed)
+    random.seed(training_args.seed)
+    torch.manual_seed(training_args.seed)
 
     puzzles = load_puzzles(script_args.data_path)
     random.shuffle(puzzles)
-    split_idx = int(len(puzzles) * (1.0 - script_args.eval_ratio))
-    train_puzzles = puzzles[:split_idx]
-    eval_puzzles = puzzles[split_idx:] if split_idx < len(puzzles) else puzzles
+
+    eval_puzzles: List[Dict] = []
+    if script_args.eval_path and os.path.exists(script_args.eval_path):
+        eval_puzzles = load_puzzles(script_args.eval_path)
+    else:
+        split_idx = int(len(puzzles) * (1.0 - script_args.eval_ratio))
+        eval_puzzles = puzzles[split_idx:] if split_idx < len(puzzles) else puzzles
+        puzzles = puzzles[:split_idx]
+
+    train_puzzles = puzzles
     if script_args.max_train_puzzles:
         train_puzzles = train_puzzles[: script_args.max_train_puzzles]
 
@@ -316,10 +421,23 @@ def main() -> None:
         script_args.model_name_or_path,
         torch_dtype=dtype,
     )
+    if not getattr(policy_model, "generation_config", None):
+        policy_model.generation_config = GenerationConfig.from_model_config(policy_model.config)
+    gc_enabled = False
     if hasattr(policy_model, "gradient_checkpointing_enable"):
         policy_model.gradient_checkpointing_enable()
+        gc_enabled = True
+    if not hasattr(policy_model, "is_gradient_checkpointing"):
+        policy_model.is_gradient_checkpointing = gc_enabled
+    else:
+        policy_model.is_gradient_checkpointing = gc_enabled or bool(policy_model.is_gradient_checkpointing)
+    if hasattr(policy_model, "config"):
+        policy_model.config.return_dict = True
+    if hasattr(policy_model, "pretrained_model") and hasattr(policy_model.pretrained_model, "config"):
+        policy_model.pretrained_model.config.return_dict = True
     if hasattr(policy_model.config, "use_cache"):
         policy_model.config.use_cache = False
+    _ensure_dict_forward(policy_model)
 
     value_model = SharedValueModel(policy_model)
     pad_token_id = tokenizer.pad_token_id or tokenizer.eos_token_id
@@ -342,6 +460,15 @@ def main() -> None:
             script_args.model_name_or_path,
             torch_dtype=dtype,
         )
+        if not getattr(ref_model, "generation_config", None):
+            ref_model.generation_config = GenerationConfig.from_model_config(ref_model.config)
+        if not hasattr(ref_model, "is_gradient_checkpointing"):
+            ref_model.is_gradient_checkpointing = gc_enabled
+        if hasattr(ref_model, "config"):
+            ref_model.config.return_dict = True
+        if hasattr(ref_model, "pretrained_model") and hasattr(ref_model.pretrained_model, "config"):
+            ref_model.pretrained_model.config.return_dict = True
+        _ensure_dict_forward(ref_model)
 
     trainer = PPOTrainer(
         args=training_args,
@@ -355,11 +482,31 @@ def main() -> None:
         peft_config=peft_config,
     )
 
+    trainer.generation_kwargs = dict(
+        max_new_tokens=script_args.max_new_tokens,
+        temperature=0.0,
+        top_p=1.0,
+        do_sample=False,
+        pad_token_id=tokenizer.pad_token_id,
+    )
+
+    wrapper = trainer.model
+    if not hasattr(wrapper, "gradient_checkpointing_enable"):
+        def _wrapper_gc_enable() -> None:
+            if hasattr(wrapper.policy, "gradient_checkpointing_enable"):
+                wrapper.policy.gradient_checkpointing_enable()
+        wrapper.gradient_checkpointing_enable = _wrapper_gc_enable  # type: ignore[attr-defined]
+    if not hasattr(wrapper, "gradient_checkpointing_disable"):
+        def _wrapper_gc_disable() -> None:
+            if hasattr(wrapper.policy, "gradient_checkpointing_disable"):
+                wrapper.policy.gradient_checkpointing_disable()
+        wrapper.gradient_checkpointing_disable = _wrapper_gc_disable  # type: ignore[attr-defined]
+
     trainer.train()
 
-    os.makedirs(script_args.output_dir, exist_ok=True)
-    trainer.save_model(script_args.output_dir)
-    tokenizer.save_pretrained(script_args.output_dir)
+    os.makedirs(training_args.output_dir, exist_ok=True)
+    trainer.save_model(training_args.output_dir)
+    tokenizer.save_pretrained(training_args.output_dir)
 
     device = torch.device(
         "cuda" if torch.cuda.is_available() else ("mps" if torch.backends.mps.is_available() else "cpu")

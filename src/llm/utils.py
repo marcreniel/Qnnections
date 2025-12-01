@@ -1,32 +1,31 @@
-"""Utility functions for LLM PPO: Parsing and Rewards."""
+"""Utility helpers for parsing model outputs and computing rewards."""
+
 import json
 import re
-from typing import List, Optional, Set
+from typing import List, Optional
 
 def normalize_word(w: str) -> str:
     return w.strip().upper()
 
-def parse_solution(output_text: str, original_words: List[str]) -> Optional[List[List[str]]]:
-    """
-    Try to:
-      - parse output_text as JSON
-      - read 'groups' -> list of dicts with 'members'
-      - ensure:
-          * exactly 4 groups
-          * each group has exactly 4 strings
-          * after normalization, the 16 guessed words form a permutation
-            of original_words (no extras, no duplicates, no missing)
-      - return list of 4 lists of normalized words if valid,
-        else return None
-    """
-    # Attempt to extract JSON if embedded in other text
-    # Look for { ... }
-    match = re.search(r'\{.*\}', output_text, re.DOTALL)
+def _extract_json_snippet(text: str) -> str:
+    """Best-effort extraction of the JSON block inside ``text``."""
+
+    text = text.strip()
+    match = re.search(r"\{.*\}", text, re.DOTALL)
     if match:
-        json_str = match.group(0)
-    else:
-        json_str = output_text
-        
+        return match.group(0)
+
+    start = text.find("{")
+    end = text.rfind("}")
+    if start != -1 and end != -1 and end > start:
+        return text[start : end + 1]
+    return text
+
+
+def parse_solution(output_text: str, original_words: List[str]) -> Optional[List[List[str]]]:
+    """Best-effort parser that extracts four groups with four words each."""
+    json_str = _extract_json_snippet(output_text)
+
     try:
         data = json.loads(json_str)
     except json.JSONDecodeError:
@@ -59,58 +58,43 @@ def parse_solution(output_text: str, original_words: List[str]) -> Optional[List
     
     return parsed_groups
 
+def count_correct_words(
+    pred_groups: Optional[List[List[str]]],
+    true_groups: List[List[str]],
+) -> int:
+    """Count how many words are in their exact ground-truth group."""
+
+    if pred_groups is None:
+        return 0
+
+    normalized_true = [set(normalize_word(word) for word in group) for group in true_groups]
+    matched_true = [False] * len(normalized_true)
+    correct_words = 0
+
+    for group in pred_groups:
+        if len(group) != 4:
+            continue
+        normalized_group = set(normalize_word(word) for word in group)
+        match_idx = None
+        for idx, (true_set, already_matched) in enumerate(zip(normalized_true, matched_true)):
+            if already_matched:
+                continue
+            if normalized_group == true_set:
+                match_idx = idx
+                break
+        if match_idx is not None:
+            matched_true[match_idx] = True
+            correct_words += 4
+
+    return correct_words
+
+
 def compute_reward(
     pred_groups: Optional[List[List[str]]],
     true_groups: List[List[str]],
-    # strict: bool = True  <-- Removed unused parameter
 ) -> float:
-    """
-    Computes the reward for the one-shot LLM agent using the unified scheme:
-    - Correct Group: +3
-    - One-away (3/4): +1
-    - Wrong Group: -2
-    - Win Bonus (all 4 correct): +5
-    - Lose Penalty (otherwise): -3
-    - Per-word Reward: +0.2 per correct word
-    
-    Normalized by max possible score (20.2) to range roughly [-1, 1].
-    """
-    if pred_groups is None:
-        # Invalid format is treated as a severe failure
-        # Min possible score is -11 (4 wrong + lose). -1.0 is a fair proxy.
-        return -1.0
-        
-    score = 0.0
-    correct_count = 0
-    
-    # Convert true groups to sets for easier matching
-    true_sets = [set(g) for g in true_groups]
-    
-    for pg in pred_groups:
-        pg_set = set(pg)
-        # Find best match among true groups
-        best_overlap = 0
-        for tg in true_sets:
-            overlap = len(pg_set & tg)
-            if overlap > best_overlap:
-                best_overlap = overlap
-        
-        # Add per-word reward (only for wrong guesses, i.e., overlap < 3)
-        if best_overlap < 3:
-            score += best_overlap * 0.2
-        
-        if best_overlap == 4:
-            score += 3.0
-            correct_count += 1
-        elif best_overlap == 3:
-            score += 1.0
-        else:
-            score += -2.0
-            
-    if correct_count == 4:
-        score += 5.0 # Win Bonus
-    else:
-        score += -3.0 # Failure Penalty
-        
-    # Normalize by max possible score (4 * 3 + 5 = 17.0)
-    return score / 17.0
+    """Smooth reward scaled to [-1/3, 1] based on correct words."""
+
+    correct_words = count_correct_words(pred_groups, true_groups)
+    reward = (correct_words - 4) / 12.0
+    return max(-1.0 / 3.0, min(1.0, reward))
