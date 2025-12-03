@@ -6,6 +6,37 @@ import re
 from typing import List, Optional, Sequence, Tuple
 
 
+@dataclass
+class RewardSettings:
+    """Configurable knobs for Connections rewards.
+
+    reward_stage curriculum:
+        1 = structure only (valid JSON + 4x4 boards)
+        2 = word coverage (correct words anywhere)
+        3 = group correctness + strong win bonus (full solves)
+    """
+
+    reward_stage: int = 3
+    invalid_penalty: float = -1.0
+    json_bonus: float = 0.2
+    shape_bonus: float = 0.2
+    uniqueness_bonus: float = 0.2
+    base_scale: float = 2.0
+
+
+@dataclass
+class GameSimulationResult:
+    solved_groups: int
+    mistakes: int
+    success: bool
+
+
+@dataclass
+class GroupGuess:
+    members: List[str]
+    theme: Optional[str] = None
+
+
 def normalize_word(w: str) -> str:
     return w.strip().upper()
 
@@ -179,39 +210,6 @@ def simulate_nyt_game(
 
     success = solved == target_total and mistakes < max_mistakes
     return GameSimulationResult(solved, mistakes, success)
-
-
-@dataclass
-class RewardSettings:
-    """Configurable knobs for Connections rewards.
-
-    reward_stage curriculum:
-        1 = structure only (valid JSON + 4x4 boards)
-        2 = word coverage (correct words anywhere)
-        3 = group correctness + strong win bonus (full solves)
-    """
-
-    reward_stage: int = 3
-    invalid_penalty: float = -1.0
-    json_bonus: float = 0.2
-    shape_bonus: float = 0.2
-    uniqueness_bonus: float = 0.2
-    base_scale: float = 2.0
-
-
-@dataclass
-class GameSimulationResult:
-    solved_groups: int
-    mistakes: int
-    success: bool
-
-
-@dataclass
-class GroupGuess:
-    members: List[str]
-    theme: Optional[str] = None
-
-
 def _extract_words_from_text(text: str) -> List[str]:
     return re.findall(r"[A-Za-z']+", text.upper())
 
