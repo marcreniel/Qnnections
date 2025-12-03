@@ -24,7 +24,14 @@ from trl import AutoModelForCausalLMWithValueHead
 from trl.experimental.ppo import PPOConfig, PPOTrainer
 
 from src.llm.data import build_prompt, get_true_groups, load_puzzles
-from src.llm.utils import compute_reward, count_correct_words, parse_solution
+from src.llm.utils import (
+    RewardSettings,
+    compute_reward,
+    count_correct_words,
+    normalize_word,
+    parse_group_guess,
+    parse_solution,
+)
 
 
 _STATE_DICT_PATCHED = False
@@ -78,6 +85,8 @@ class ConnectionsArguments:
     temperature: float = 0.7
     top_p: float = 0.95
     top_k: int = 50
+    reward_stage: int = 3  # 1=structure, 2=words, 3=groups+win bonus
+    reward_stage: int = 3
 
 
 @dataclass
@@ -107,8 +116,65 @@ def evaluate_bandit_agent(
     num_samples: int = 50,
     device: str | torch.device = "cpu",
     generation_kwargs: Dict | None = None,
+    reward_config: RewardSettings | None = None,
 ) -> Dict[str, float]:
-    """One-shot greedy evaluation on held-out puzzles."""
+    """Interactive evaluation that mirrors NYT Connections gameplay."""
+
+    system_prompt = (
+        "You are solving an NYT Connections puzzle. Submit exactly one group of four "
+        "remaining words per turn, formatted as JSON: {\"guess\": {\"theme\": \"...\", "
+        "\"members\": [\"WORD\", ...]}}. Only use remaining words and do not repeat solved groups."
+    )
+    max_attempts = 4
+    max_mistakes = 4
+
+    def render_words(word_order: List[str], lookup: Dict[str, str]) -> str:
+        if not word_order:
+            return "(none)"
+        return ", ".join(lookup.get(word, word) for word in word_order)
+
+    def render_solved(true_groups: List[List[str]], solved_flags: List[bool]) -> str:
+        lines = [
+            f"Group {idx + 1}: {', '.join(true_groups[idx])}"
+            for idx, solved in enumerate(solved_flags)
+            if solved
+        ]
+        return "\n".join(lines) if lines else "(none yet)"
+
+    def build_state_prompt(
+        base_prompt: str,
+        remaining_order: List[str],
+        lookup: Dict[str, str],
+        true_groups: List[List[str]],
+        solved_flags: List[bool],
+        mistakes_used: int,
+    ) -> str:
+        parts = [
+            base_prompt.strip(),
+            "",
+            f"Remaining words ({len(remaining_order)}): {render_words(remaining_order, lookup)}",
+            f"Solved groups so far:\n{render_solved(true_groups, solved_flags)}",
+            f"Mistakes used: {mistakes_used}/{max_mistakes}",
+            "Submit the next group using the JSON schema described in the system prompt.",
+        ]
+        return "\n".join(parts).strip()
+
+    def build_feedback_message(
+        feedback_line: str,
+        remaining_order: List[str],
+        lookup: Dict[str, str],
+        true_groups: List[List[str]],
+        solved_flags: List[bool],
+        mistakes_used: int,
+        needs_next_guess: bool,
+    ) -> str:
+        parts = [feedback_line]
+        parts.append(f"Mistakes used: {mistakes_used}/{max_mistakes}")
+        parts.append(f"Solved groups:\n{render_solved(true_groups, solved_flags)}")
+        parts.append(f"Remaining words ({len(remaining_order)}): {render_words(remaining_order, lookup)}")
+        if needs_next_guess:
+            parts.append("Submit another single group guess in the required JSON format.")
+        return "\n".join(parts)
 
     model.eval()
     samples = eval_puzzles[:num_samples]
@@ -116,7 +182,9 @@ def evaluate_bandit_agent(
         samples = (samples * (num_samples // len(samples) + 1))[:num_samples]
 
     rewards: List[float] = []
-    success_full_list: List[float] = []
+    reward_success_list: List[float] = []
+    nyt_success_list: List[float] = []
+    mistake_counts: List[int] = []
 
     greedy_config = generation_kwargs or dict(
         max_new_tokens=256,
@@ -127,32 +195,119 @@ def evaluate_bandit_agent(
     )
 
     for puzzle in tqdm(samples, desc="Eval"):
-        prompt, shuffled_words = build_prompt(puzzle, shuffle_words=True)
-        messages = [
-            {"role": "system", "content": "You are a helpful assistant that solves Connections puzzles."},
-            {"role": "user", "content": prompt},
-        ]
-        input_text = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
-        inputs = tokenizer(input_text, return_tensors="pt").to(device)
-
-        with torch.no_grad():
-            outputs = model.generate(**inputs, **greedy_config)
-
-        gen_tokens = outputs[:, inputs["input_ids"].shape[1]:]
-        gen_text = tokenizer.decode(gen_tokens[0], skip_special_tokens=True)
-
+        base_prompt, shuffled_words = build_prompt(puzzle, shuffle_words=True)
         true_groups = get_true_groups(puzzle)
-        pred_groups = parse_solution(gen_text, shuffled_words)
-        reward = compute_reward(pred_groups, true_groups)
+        true_sets = [set(normalize_word(word) for word in group) for group in true_groups]
+        remaining_order = [normalize_word(word) for word in shuffled_words]
+        lookup = {normalize_word(word): word for word in shuffled_words}
+        remaining_set = set(remaining_order)
+        solved_flags = [False] * len(true_groups)
+        solved_count = 0
+        mistakes = 0
+        guess_history: List[List[str]] = []
 
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {
+                "role": "user",
+                "content": build_state_prompt(
+                    base_prompt, remaining_order, lookup, true_groups, solved_flags, mistakes
+                ),
+            },
+        ]
+
+        for attempt in range(max_attempts):
+            input_text = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+            inputs = tokenizer(input_text, return_tensors="pt").to(device)
+
+            with torch.no_grad():
+                outputs = model.generate(**inputs, **greedy_config)
+
+            gen_tokens = outputs[:, inputs["input_ids"].shape[1]:]
+            gen_text = tokenizer.decode(gen_tokens[0], skip_special_tokens=True)
+            messages.append({"role": "assistant", "content": gen_text})
+
+            allowed_words = [lookup[word] for word in remaining_order] if remaining_order else shuffled_words
+            guess = parse_group_guess(gen_text, allowed_words)
+            guess_words = guess.members if guess else []
+            padded_guess = guess_words[:4]
+            while len(padded_guess) < 4:
+                padded_guess.append("")
+            guess_history.append(padded_guess)
+
+            if not guess:
+                mistakes += 1
+                feedback_line = "Could not parse a valid group; counted as a mistake."
+            else:
+                guess_set = set(guess_words)
+                if len(guess_set) != 4:
+                    mistakes += 1
+                    feedback_line = "Each group must contain four unique words."
+                elif not guess_set <= remaining_set:
+                    mistakes += 1
+                    feedback_line = "One or more words are not available in the remaining bank."
+                else:
+                    match_idx = -1
+                    for idx, true_set in enumerate(true_sets):
+                        if not solved_flags[idx] and guess_set == true_set:
+                            match_idx = idx
+                            break
+                    if match_idx != -1:
+                        solved_flags[match_idx] = True
+                        solved_count += 1
+                        for word in guess_set:
+                            remaining_set.discard(word)
+                            if word in remaining_order:
+                                remaining_order.remove(word)
+                        theme_note = f" Theme: {guess.theme}." if guess.theme else ""
+                        display_words = ", ".join(lookup.get(word, word) for word in guess_words)
+                        feedback_line = f"Correct group found: {display_words}.{theme_note}".strip()
+                    else:
+                        mistakes += 1
+                        feedback_line = "That set of words does not match any remaining group."
+
+            needs_next_guess = (
+                attempt < max_attempts - 1
+                and mistakes < max_mistakes
+                and solved_count < len(true_groups)
+            )
+            feedback_text = build_feedback_message(
+                feedback_line,
+                remaining_order,
+                lookup,
+                true_groups,
+                solved_flags,
+                mistakes,
+                needs_next_guess,
+            )
+            messages.append({"role": "user", "content": feedback_text})
+
+            if not needs_next_guess:
+                break
+
+        while len(guess_history) < 4:
+            guess_history.append(["", "", "", ""])
+
+        reward = compute_reward(guess_history, true_groups, reward_config)
         rewards.append(reward)
-        success_full_list.append(1.0 if reward == 1.0 else 0.0)
+        reward_success_list.append(1.0 if reward == 1.0 else 0.0)
+
+        success = solved_count == len(true_groups) and mistakes < max_mistakes
+        nyt_success_list.append(1.0 if success else 0.0)
+        mistake_counts.append(min(mistakes, max_mistakes))
 
     model.train()
 
     avg_reward = sum(rewards) / len(rewards) if rewards else 0.0
-    success_rate = sum(success_full_list) / len(success_full_list) if success_full_list else 0.0
-    return {"success_full": success_rate, "avg_reward": avg_reward}
+    success_reward = sum(reward_success_list) / len(reward_success_list) if reward_success_list else 0.0
+    success_nyt = sum(nyt_success_list) / len(nyt_success_list) if nyt_success_list else 0.0
+    avg_mistakes = sum(mistake_counts) / len(mistake_counts) if mistake_counts else 0.0
+    return {
+        "success_reward": success_reward,
+        "success_nyt": success_nyt,
+        "avg_mistakes": avg_mistakes,
+        "avg_reward": avg_reward,
+    }
 
 
 def build_prompt_dataset(
@@ -214,6 +369,7 @@ class RewardScorer(nn.Module):
         response_prefix: str,
         backbone: ConnectionsRewardBackbone,
         pad_token_id: int,
+        reward_config: RewardSettings,
     ) -> None:
         super().__init__()
         self.tokenizer = tokenizer
@@ -222,6 +378,7 @@ class RewardScorer(nn.Module):
         self.backbone = backbone
         self.pad_token_id = pad_token_id
         self.step_count = 0
+        self.reward_config = reward_config
 
     def forward(self, hidden_states: torch.Tensor) -> torch.Tensor:  # pragma: no cover - depends on runtime tensors
         if self.backbone.last_input_ids is None:
@@ -231,6 +388,7 @@ class RewardScorer(nn.Module):
         rewards: List[float] = []
         correct_counts: List[int] = []
         parse_success: List[int] = []
+        perfect_solutions: List[int] = []
 
         # Log detailed samples on a cadence to avoid flooding stdout
         should_log = self.step_count % 10 == 0
@@ -247,16 +405,17 @@ class RewardScorer(nn.Module):
             response_text = self._extract_response(decoded, meta.prompt_text if meta else None)
             if meta is None:
                 pred_groups = None
-                reward = -1.0 / 3.0
+                reward = self.reward_config.invalid_penalty
                 correct_words = 0
             else:
                 pred_groups = parse_solution(response_text, meta.original_words)
                 correct_words = count_correct_words(pred_groups, meta.true_groups)
-                reward = compute_reward(pred_groups, meta.true_groups)
+                reward = compute_reward(pred_groups, meta.true_groups, self.reward_config)
 
             rewards.append(reward)
             correct_counts.append(correct_words)
             parse_success.append(1 if pred_groups is not None else 0)
+            perfect_solutions.append(1 if reward >= 0.95 else 0)
 
             if should_log and i == 0:
                 print(f"\n[Step {self.step_count}] Sample Generation:\n{response_text}\n")
@@ -268,10 +427,11 @@ class RewardScorer(nn.Module):
             reward_std = statistics.pstdev(rewards) if len(rewards) > 1 else 0.0
             parse_rate = sum(parse_success) / len(parse_success)
             avg_correct = statistics.fmean(correct_counts) if correct_counts else 0.0
+            full_rate = sum(perfect_solutions) / len(perfect_solutions)
             print(
                 f"[Step {self.step_count}] Reward stats -> mean: {avg_reward:.3f}, std: {reward_std:.3f}, "
                 f"min: {min(rewards):.3f}, max: {max(rewards):.3f}, parse_success: {parse_rate:.2%}, "
-                f"avg_correct_words: {avg_correct:.2f}"
+                f"avg_correct_words: {avg_correct:.2f}, solved: {full_rate:.2%}"
             )
 
         self.step_count += 1
@@ -311,10 +471,11 @@ class ConnectionsRewardModel(nn.Module):
         metadata: Dict[str, PuzzleMetadata],
         response_prefix: str,
         pad_token_id: int,
+        reward_config: RewardSettings,
     ) -> None:
         super().__init__()
         self.backbone = ConnectionsRewardBackbone()
-        self.score = RewardScorer(tokenizer, metadata, response_prefix, self.backbone, pad_token_id)
+        self.score = RewardScorer(tokenizer, metadata, response_prefix, self.backbone, pad_token_id, reward_config)
 
 
 class SharedValueModel(nn.Module):
@@ -379,6 +540,12 @@ def main() -> None:
         training_args.seed = 42
     
     training_args.response_length = script_args.max_new_tokens
+    if hasattr(training_args, "target_kl") and training_args.target_kl is None:
+        training_args.target_kl = 0.05
+    if hasattr(training_args, "adap_kl_ctrl"):
+        training_args.adap_kl_ctrl = True
+    if hasattr(training_args, "kl_penalty") and getattr(training_args, "kl_penalty") is None:
+        training_args.kl_penalty = "kl"
     maybe_setup_wandb(script_args, training_args)
 
     random.seed(training_args.seed)
@@ -441,7 +608,10 @@ def main() -> None:
 
     value_model = SharedValueModel(policy_model)
     pad_token_id = tokenizer.pad_token_id or tokenizer.eos_token_id
-    reward_model = ConnectionsRewardModel(tokenizer, reward_metadata, RESPONSE_PREFIX, pad_token_id)
+    # Reward stages let us start with "format only" shaping (stage 1) and
+    # progressively add word- and group-level credit assignment.
+    reward_config = RewardSettings(reward_stage=script_args.reward_stage)
+    reward_model = ConnectionsRewardModel(tokenizer, reward_metadata, RESPONSE_PREFIX, pad_token_id, reward_config)
 
     peft_config = None
     if script_args.use_lora:
@@ -484,9 +654,9 @@ def main() -> None:
 
     trainer.generation_kwargs = dict(
         max_new_tokens=script_args.max_new_tokens,
-        temperature=0.0,
-        top_p=1.0,
-        do_sample=False,
+        temperature=0.5,
+        top_p=0.9,
+        do_sample=True,
         pad_token_id=tokenizer.pad_token_id,
     )
 
@@ -527,9 +697,18 @@ def main() -> None:
             num_samples=script_args.eval_samples,
             device=device,
             generation_kwargs=eval_kwargs,
+            reward_config=reward_config,
         )
-        print(f"Final Eval Success: {eval_metrics['success_full']:.2%}, Avg Reward: {eval_metrics['avg_reward']:.3f}")
+        print(
+            "Final Eval Success (NYT rules): "
+            f"{eval_metrics['success_nyt']:.2%}, Avg Reward: {eval_metrics['avg_reward']:.3f}, "
+            f"Avg Mistakes: {eval_metrics['avg_mistakes']:.2f}, Reward-Exact Success: {eval_metrics['success_reward']:.2%}"
+        )
 
 
 if __name__ == "__main__":
+    # Curriculum reference:
+    #  Stage 1 (structure only): python train_llm_ppo.py --reward_stage 1 --output_dir outputs/stage1
+    #  Stage 2 (word coverage):  python train_llm_ppo.py --model_name_or_path outputs/stage1 --reward_stage 2 --output_dir outputs/stage2
+    #  Stage 3 (full solves):    python train_llm_ppo.py --model_name_or_path outputs/stage2 --reward_stage 3 --output_dir outputs/stage3
     main()
