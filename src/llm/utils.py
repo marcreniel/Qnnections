@@ -2,6 +2,7 @@
 
 from dataclasses import dataclass
 import json
+import math
 import re
 from typing import List, Optional, Sequence, Tuple
 
@@ -21,7 +22,11 @@ class RewardSettings:
     json_bonus: float = 0.2
     shape_bonus: float = 0.2
     uniqueness_bonus: float = 0.2
-    base_scale: float = 2.0
+    stage2_scale: float = 1.5
+    stage3_scale: float = 2.0
+    coverage_power: float = 1.6
+    stage2_word_weight: float = 0.7
+    stage3_word_weight: float = 0.4
 
 
 @dataclass
@@ -72,8 +77,9 @@ def parse_solution(output_text: str, original_words: List[str]) -> Optional[List
     if not isinstance(groups, list) or len(groups) != 4:
         return None
         
+    normalized_original = {normalize_word(word) for word in original_words} if original_words else None
     parsed_groups = []
-    all_guessed_words = []
+    all_guessed_words: List[str] = []
     
     for g in groups:
         if "members" not in g:
@@ -83,13 +89,17 @@ def parse_solution(output_text: str, original_words: List[str]) -> Optional[List
             return None
             
         norm_members = [normalize_word(w) for w in members]
+        if normalized_original:
+            for word in norm_members:
+                if word not in normalized_original:
+                    return None
         parsed_groups.append(norm_members)
         all_guessed_words.extend(norm_members)
         
-    # Relaxed validation: Just check if we have 4 groups of 4 words.
-    # We no longer enforce that they are a perfect permutation of original_words.
-    # This allows the model to get partial credit even if it hallucinates or repeats words.
-    
+    if len(set(all_guessed_words)) != len(all_guessed_words):
+        return None
+    if normalized_original and not set(all_guessed_words) <= normalized_original:
+        return None
     return parsed_groups
 
 
@@ -114,7 +124,12 @@ def _fallback_parse(output_text: str, original_words: List[str]) -> Optional[Lis
         if len(groups) == 4:
             break
 
-    return groups if len(groups) == 4 else None
+    if len(groups) != 4:
+        return None
+    flat = [word for group in groups for word in group]
+    if len(set(flat)) != len(flat):
+        return None
+    return groups
 
 
 def _flatten(pred_groups: List[List[str]]) -> List[str]:
@@ -315,6 +330,12 @@ def _structure_bonuses(
     return bonus, structurally_valid
 
 
+def _smooth_progress(value: float, power: float) -> float:
+    value = max(0.0, min(1.0, value))
+    power = max(1.0, power)
+    return 1.0 - math.pow(1.0 - value, power)
+
+
 def compute_reward(
     pred_groups: Optional[List[List[str]]],
     true_groups: Sequence[Sequence[str]],
@@ -342,17 +363,17 @@ def compute_reward(
         return max(-1.0, min(1.0, reward))
 
     if stage == 2:
-        base = word_score
-        reward = config.invalid_penalty + bonus + config.base_scale * base
+        coverage = config.stage2_word_weight * word_score + (1.0 - config.stage2_word_weight) * group_score
+        smooth = _smooth_progress(coverage, config.coverage_power)
+        reward = bonus + config.stage2_scale * smooth
         return max(-1.0, min(1.0, reward))
 
-    base = 0.3 * word_score + 0.7 * group_score
-    reward = config.invalid_penalty + bonus + config.base_scale * base
+    coverage = config.stage3_word_weight * word_score + (1.0 - config.stage3_word_weight) * group_score
+    smooth = _smooth_progress(coverage, config.coverage_power)
+    reward = bonus + config.stage3_scale * smooth
 
     if full_groups == 4:
-        return 1.0
-    if full_groups == 3 and correct_words >= 14:
-        reward = max(reward, 0.6)
+        reward = 1.0 + 0.5 * bonus
 
     return max(-1.0, min(1.0, reward))
 

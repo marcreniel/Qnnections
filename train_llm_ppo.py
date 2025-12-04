@@ -8,7 +8,7 @@ import re
 import statistics
 from dataclasses import dataclass
 from types import SimpleNamespace
-from typing import Dict, List, Tuple
+from typing import Any, Dict, List, Tuple
 
 import torch
 from torch import nn
@@ -28,6 +28,7 @@ from src.llm.utils import (
     RewardSettings,
     compute_reward,
     count_correct_words,
+    count_full_groups,
     normalize_word,
     parse_group_guess,
     parse_solution,
@@ -86,7 +87,8 @@ class ConnectionsArguments:
     top_p: float = 0.95
     top_k: int = 50
     reward_stage: int = 3  # 1=structure, 2=words, 3=groups+win bonus
-    reward_stage: int = 3
+    stage2_replay_path: str | None = None
+    stage2_replay_fraction: float = 0.0
 
 
 @dataclass
@@ -125,7 +127,6 @@ def evaluate_bandit_agent(
         "remaining words per turn, formatted as JSON: {\"guess\": {\"theme\": \"...\", "
         "\"members\": [\"WORD\", ...]}}. Only use remaining words and do not repeat solved groups."
     )
-    max_attempts = 4
     max_mistakes = 4
 
     def render_words(word_order: List[str], lookup: Dict[str, str]) -> str:
@@ -185,6 +186,9 @@ def evaluate_bandit_agent(
     reward_success_list: List[float] = []
     nyt_success_list: List[float] = []
     mistake_counts: List[int] = []
+    correct_word_counts: List[int] = []
+    full_group_counts: List[int] = []
+    sample_logs: List[Dict[str, Any]] = []
 
     greedy_config = generation_kwargs or dict(
         max_new_tokens=256,
@@ -216,7 +220,9 @@ def evaluate_bandit_agent(
             },
         ]
 
-        for attempt in range(max_attempts):
+        attempt = 0
+        last_assistant_response = ""
+        while True:
             input_text = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
             inputs = tokenizer(input_text, return_tensors="pt").to(device)
 
@@ -225,6 +231,7 @@ def evaluate_bandit_agent(
 
             gen_tokens = outputs[:, inputs["input_ids"].shape[1]:]
             gen_text = tokenizer.decode(gen_tokens[0], skip_special_tokens=True)
+            last_assistant_response = gen_text
             messages.append({"role": "assistant", "content": gen_text})
 
             allowed_words = [lookup[word] for word in remaining_order] if remaining_order else shuffled_words
@@ -266,11 +273,8 @@ def evaluate_bandit_agent(
                         mistakes += 1
                         feedback_line = "That set of words does not match any remaining group."
 
-            needs_next_guess = (
-                attempt < max_attempts - 1
-                and mistakes < max_mistakes
-                and solved_count < len(true_groups)
-            )
+            attempt += 1
+            needs_next_guess = mistakes < max_mistakes and solved_count < len(true_groups)
             feedback_text = build_feedback_message(
                 feedback_line,
                 remaining_order,
@@ -291,10 +295,25 @@ def evaluate_bandit_agent(
         reward = compute_reward(guess_history, true_groups, reward_config)
         rewards.append(reward)
         reward_success_list.append(1.0 if reward == 1.0 else 0.0)
+        correct_word_counts.append(count_correct_words(guess_history, true_groups))
+        full_group_counts.append(count_full_groups(guess_history, true_groups))
 
         success = solved_count == len(true_groups) and mistakes < max_mistakes
         nyt_success_list.append(1.0 if success else 0.0)
         mistake_counts.append(min(mistakes, max_mistakes))
+
+        if len(sample_logs) < 5:
+            sample_logs.append(
+                {
+                    "puzzle_id": puzzle.get("id", "unknown"),
+                    "date": puzzle.get("date"),
+                    "guesses": [list(words) for words in guess_history],
+                    "assistant_response": last_assistant_response,
+                    "success": success,
+                    "mistakes": mistakes,
+                    "reward": reward,
+                }
+            )
 
     model.train()
 
@@ -302,11 +321,30 @@ def evaluate_bandit_agent(
     success_reward = sum(reward_success_list) / len(reward_success_list) if reward_success_list else 0.0
     success_nyt = sum(nyt_success_list) / len(nyt_success_list) if nyt_success_list else 0.0
     avg_mistakes = sum(mistake_counts) / len(mistake_counts) if mistake_counts else 0.0
+    avg_correct_words = sum(correct_word_counts) / len(correct_word_counts) if correct_word_counts else 0.0
+    avg_full_groups = sum(full_group_counts) / len(full_group_counts) if full_group_counts else 0.0
+
+    if sample_logs:
+        print("\nSample eval responses:")
+        for log in sample_logs:
+            pid = log.get("puzzle_id")
+            date = log.get("date")
+            print(
+                f"- Puzzle {pid} ({date}): success={log['success']} mistakes={log['mistakes']} reward={log['reward']:.3f}"
+            )
+            print("  Assistant response:")
+            print("  " + log["assistant_response"].replace("\n", "\n  "))
+            print("  Parsed guesses:")
+            for guess in log["guesses"]:
+                print(f"    {guess}")
+            print()
     return {
         "success_reward": success_reward,
         "success_nyt": success_nyt,
         "avg_mistakes": avg_mistakes,
         "avg_reward": avg_reward,
+        "avg_correct_words": avg_correct_words,
+        "avg_full_groups": avg_full_groups,
     }
 
 
@@ -342,13 +380,10 @@ def build_prompt_dataset(
             original_words=list(puzzle.get("all_words", [])),
         )
         next_index += 1
-
     return ConnectionsPromptDataset(samples), metadata, next_index
 
 
 class ConnectionsRewardBackbone(nn.Module):
-    """Dummy backbone that stores the latest token ids for reward computation."""
-
     def __init__(self) -> None:
         super().__init__()
         self.last_input_ids: torch.Tensor | None = None
@@ -388,7 +423,8 @@ class RewardScorer(nn.Module):
         rewards: List[float] = []
         correct_counts: List[int] = []
         parse_success: List[int] = []
-        perfect_solutions: List[int] = []
+        full_group_counts: List[int] = []
+        solve_hits: List[int] = []
 
         # Log detailed samples on a cadence to avoid flooding stdout
         should_log = self.step_count % 10 == 0
@@ -407,31 +443,39 @@ class RewardScorer(nn.Module):
                 pred_groups = None
                 reward = self.reward_config.invalid_penalty
                 correct_words = 0
+                full_groups = 0
             else:
                 pred_groups = parse_solution(response_text, meta.original_words)
                 correct_words = count_correct_words(pred_groups, meta.true_groups)
+                full_groups = count_full_groups(pred_groups, meta.true_groups)
                 reward = compute_reward(pred_groups, meta.true_groups, self.reward_config)
 
             rewards.append(reward)
             correct_counts.append(correct_words)
             parse_success.append(1 if pred_groups is not None else 0)
-            perfect_solutions.append(1 if reward >= 0.95 else 0)
+            full_group_counts.append(full_groups)
+            solve_hits.append(1 if full_groups == 4 else 0)
 
             if should_log and i == 0:
                 print(f"\n[Step {self.step_count}] Sample Generation:\n{response_text}\n")
                 print(f"[Step {self.step_count}] Parsed Groups: {pred_groups}")
-                print(f"[Step {self.step_count}] Reward: {reward:.3f} (correct_words={correct_words})")
+                print(
+                    f"[Step {self.step_count}] Reward: {reward:.3f} "
+                    f"(correct_words={correct_words}, full_groups={full_groups})"
+                )
 
         if should_log and rewards:
             avg_reward = statistics.fmean(rewards)
             reward_std = statistics.pstdev(rewards) if len(rewards) > 1 else 0.0
             parse_rate = sum(parse_success) / len(parse_success)
             avg_correct = statistics.fmean(correct_counts) if correct_counts else 0.0
-            full_rate = sum(perfect_solutions) / len(perfect_solutions)
+            avg_full_groups = statistics.fmean(full_group_counts) if full_group_counts else 0.0
+            solve_rate = sum(solve_hits) / len(solve_hits) if solve_hits else 0.0
             print(
                 f"[Step {self.step_count}] Reward stats -> mean: {avg_reward:.3f}, std: {reward_std:.3f}, "
                 f"min: {min(rewards):.3f}, max: {max(rewards):.3f}, parse_success: {parse_rate:.2%}, "
-                f"avg_correct_words: {avg_correct:.2f}, solved: {full_rate:.2%}"
+                f"avg_correct_words: {avg_correct:.2f}, avg_full_groups: {avg_full_groups:.2f}, "
+                f"solved: {solve_rate:.2%}"
             )
 
         self.step_count += 1
@@ -546,6 +590,15 @@ def main() -> None:
         training_args.adap_kl_ctrl = True
     if hasattr(training_args, "kl_penalty") and getattr(training_args, "kl_penalty") is None:
         training_args.kl_penalty = "kl"
+    default_lr = 3e-6 if script_args.reward_stage == 3 else 1e-6
+    if getattr(training_args, "learning_rate", None) in (None, 0.0):
+        training_args.learning_rate = default_lr
+    if (
+        script_args.reward_stage == 3
+        and hasattr(training_args, "entropy_coef")
+        and getattr(training_args, "entropy_coef", None) is None
+    ):
+        training_args.entropy_coef = 0.01
     maybe_setup_wandb(script_args, training_args)
 
     random.seed(training_args.seed)
@@ -581,6 +634,33 @@ def main() -> None:
     eval_meta: Dict[str, PuzzleMetadata] = {}
     if eval_puzzles:
         eval_dataset, eval_meta, next_index = build_prompt_dataset(eval_puzzles, tokenizer, next_index, False)
+
+    replay_fraction = max(0.0, min(1.0, script_args.stage2_replay_fraction))
+    if (
+        script_args.reward_stage == 3
+        and replay_fraction > 0.0
+        and script_args.stage2_replay_path
+        and os.path.exists(script_args.stage2_replay_path)
+    ):
+        stage2_replay_puzzles = load_puzzles(script_args.stage2_replay_path)
+        replay_dataset, replay_meta, next_index = build_prompt_dataset(
+            stage2_replay_puzzles,
+            tokenizer,
+            next_index,
+            script_args.shuffle_words,
+        )
+        replay_target = max(1, int(len(train_dataset) * replay_fraction))
+        if len(replay_dataset) > 0:
+            replay_indices = list(range(len(replay_dataset)))
+            random.shuffle(replay_indices)
+            selected = replay_indices[: min(replay_target, len(replay_dataset))]
+            for idx in selected:
+                train_dataset.samples.append(replay_dataset.samples[idx])
+            train_meta.update(replay_meta)
+            print(
+                f"[Curriculum] Added {len(selected)} Stage 2 replay samples (fraction={replay_fraction:.2f})."
+            )
+
     reward_metadata = {**train_meta, **eval_meta}
 
     dtype = torch.bfloat16 if (torch.cuda.is_available() or torch.backends.mps.is_available()) else torch.float32
@@ -702,7 +782,8 @@ def main() -> None:
         print(
             "Final Eval Success (NYT rules): "
             f"{eval_metrics['success_nyt']:.2%}, Avg Reward: {eval_metrics['avg_reward']:.3f}, "
-            f"Avg Mistakes: {eval_metrics['avg_mistakes']:.2f}, Reward-Exact Success: {eval_metrics['success_reward']:.2%}"
+            f"Avg Mistakes: {eval_metrics['avg_mistakes']:.2f}, Reward-Exact Success: {eval_metrics['success_reward']:.2%}, "
+            f"Avg Correct Words: {eval_metrics['avg_correct_words']:.2f}, Avg Full Groups: {eval_metrics['avg_full_groups']:.2f}"
         )
 
 
