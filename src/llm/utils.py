@@ -1,4 +1,4 @@
-"""Utility helpers for parsing model outputs and computing rewards."""
+"""Utility helpers for parsing model outputs and    ting rewards."""
 
 from dataclasses import dataclass
 import json
@@ -14,19 +14,33 @@ class RewardSettings:
     reward_stage curriculum:
         1 = structure only (valid JSON + 4x4 boards)
         2 = word coverage (correct words anywhere)
-        3 = group correctness + strong win bonus (full solves)
+        3 = solve-aware: group correctness + NYT-game-style shaping
     """
 
     reward_stage: int = 3
-    invalid_penalty: float = -1.0
+
+    # Generic structural shaping
+    invalid_penalty: float = -0.7
     json_bonus: float = 0.2
     shape_bonus: float = 0.2
     uniqueness_bonus: float = 0.2
+
+    # Stage 2: coverage-centric
     stage2_scale: float = 1.5
-    stage3_scale: float = 2.0
-    coverage_power: float = 1.6
     stage2_word_weight: float = 0.7
-    stage3_word_weight: float = 0.4
+    coverage_power: float = 1.6
+
+    # Stage 3: coverage + game shaping
+    stage3_scale: float = 2.0          # weight on smooth coverage term
+    stage3_word_weight: float = 0.4    # coverage mix: words vs groups
+    stage3_group_bonus: float = 0.4    # extra reward per solved group (game-space)
+    stage3_mistake_penalty: float = 0.3
+    max_mistakes: int = 4
+
+    # Exact-solve behavior
+    stage3_exact_reward: float = 1.0
+    stage3_win_bonus: float = 0.15
+    stage3_exact_only: bool = False    # when True, compress partial solves below exact_reward
 
 
 @dataclass
@@ -341,7 +355,12 @@ def compute_reward(
     true_groups: Sequence[Sequence[str]],
     config: RewardSettings | None = None,
 ) -> float:
-    """Solve-aware reward for Connections puzzles."""
+    """Solve-aware reward for Connections puzzles.
+
+    - Stage 1: only structural bonuses (format/shape/uniqueness).
+    - Stage 2: smooth shaping on word + group coverage.
+    - Stage 3: stage-2 signal + NYT-game-style shaping (solved groups, mistakes).
+    """
 
     if config is None:
         config = RewardSettings()
@@ -349,34 +368,64 @@ def compute_reward(
     stage = max(1, min(3, config.reward_stage))
     bonus, structurally_valid = _structure_bonuses(pred_groups, config)
 
+    # Completely broken structure: punish and bail early
     if not structurally_valid:
         reward = config.invalid_penalty + bonus
         return max(-1.0, min(1.0, reward))
 
+    # At this point we have 4 groups × 4 words, no duplicates.
     correct_words = count_correct_words(pred_groups, true_groups)
     full_groups = count_full_groups(pred_groups, true_groups)
     word_score = correct_words / 16.0
     group_score = full_groups / 4.0
 
+    # Stage 1: basic “you followed the rules” reward
     if stage == 1:
         reward = config.invalid_penalty + bonus
         return max(-1.0, min(1.0, reward))
 
+    # Stage 2: coverage shaping only
     if stage == 2:
-        coverage = config.stage2_word_weight * word_score + (1.0 - config.stage2_word_weight) * group_score
+        coverage = (
+            config.stage2_word_weight * word_score
+            + (1.0 - config.stage2_word_weight) * group_score
+        )
         smooth = _smooth_progress(coverage, config.coverage_power)
         reward = bonus + config.stage2_scale * smooth
         return max(-1.0, min(1.0, reward))
 
-    coverage = config.stage3_word_weight * word_score + (1.0 - config.stage3_word_weight) * group_score
+    # -----------------------------
+    # Stage 3: coverage + NYT game
+    # -----------------------------
+    # 1) Coverage term (keeps training stable)
+    coverage = (
+        config.stage3_word_weight * word_score
+        + (1.0 - config.stage3_word_weight) * group_score
+    )
     smooth = _smooth_progress(coverage, config.coverage_power)
-    reward = bonus + config.stage3_scale * smooth
+    coverage_term = config.stage3_scale * smooth
 
-    if full_groups == 4:
-        reward = 1.0 + 0.5 * bonus
+    # 2) Game term: how well would these guesses fare in the actual game?
+    game = simulate_nyt_game(pred_groups, true_groups, max_mistakes=config.max_mistakes)
+    frac_solved = game.solved_groups / 4.0
+    frac_mistakes = game.mistakes / float(config.max_mistakes)
+    game_term = (
+        config.stage3_group_bonus * frac_solved
+        - config.stage3_mistake_penalty * frac_mistakes
+    )
+
+    reward = bonus + coverage_term + game_term
+
+    # If we’re in "exact-only" mode, compress non-perfect solves below the exact reward.
+    if config.stage3_exact_only and not game.success:
+        # e.g. clamp any partial solve to <= exact_reward - 0.2
+        reward = min(reward, config.stage3_exact_reward - 0.2)
+
+    # Full NYT success: always give the exact-solve bonus (then clipped to 1.0).
+    if game.success:
+        reward = config.stage3_exact_reward + config.stage3_win_bonus + 0.5 * bonus
 
     return max(-1.0, min(1.0, reward))
-
 
 def _test_reward() -> None:
     true = [
